@@ -2,7 +2,6 @@
     --header-height: 70px;
     --nav-height: 46px;
     --header-icons: 25px;
-    --footer-height: 100px;
     padding: 0;
     margin: 0;
     box-sizing: border-box;
@@ -184,44 +183,74 @@ html{
 .subcontent .products{
     display: flex;
     flex-flow: row wrap;
-    justify-content: space-around;
+    justify-content: flex-start;
+    margin: auto;
 }
 .subcontent .products .product{
+    max-width: 240px;
+    width: 240px;
     margin: 10px;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    width: 200px;
     text-align: center;
     flex: 1 0 21%;
 }
 .subcontent .products img{
-    
+    padding: 10px;
     width: 200px;
     height: 200px;
     object-fit: cover;
 }
+
+
+#login-box{
+    display: block;
+    width: 270px;
+    margin: 20px auto;
+}
+#login-box .title{
+    font-size: 30px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+#login-box .login-form label, #login-box .login-form input{
+    margin-bottom: 10px;
+}
+
+#blog-content .post{
+    margin: 20px;
+    max-height: 250px;
+}
+#blog-content .post a{
+    text-decoration: none;
+    
+}
+#blog-content .post .title{
+    font-size: 30px;
+    color: #5270FF
+}
+#blog-content .post .preview-img img{
+    max-width: 125px;
+    object-fit: contain;
+}
+
+
 #footer{
-    height:var(--footer-height);
     background-color: #152026;
     color:white;
-    display: flex;
+    padding-top: 20px;
+    
 }
 #footer ul{
     list-style-type: none;
 
 }
-#footer a{
-    
+#footer a{  
     text-decoration: none;
     color: white;
 }
-#footer .footer-info{
-    display: flex;
-    flex: 1;
-    justify-content: space-around;
-    align-items: center;
-}
+
 #footer .footer-icons{
     padding-right: 5px;
 }
