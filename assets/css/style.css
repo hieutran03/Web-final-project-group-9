@@ -172,35 +172,40 @@ html{
     
 }
 #content{   
+    width: 100%;
+    position: relative;
+}
+div.sider{
+    margin: 10px;
+    padding: 0px !important;
+}
+.sider .title{
+    background-color: #5270FF;
+    color: white;
+}
+.sider .body a{
+    text-decoration: none;
+
 }
 .subcontent{
+    width: 100%;
 }
 .subcontent .title{
     font-size: 30px;
     text-align: center;
     margin-bottom: 20px;
 }
-.subcontent .products{
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: flex-start;
-    margin: auto;
-}
 .subcontent .products .product{
-    max-width: 240px;
-    width: 240px;
-    margin: 10px;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
     text-align: center;
-    flex: 1 0 21%;
 }
+
 .subcontent .products img{
     padding: 10px;
-    width: 200px;
-    height: 200px;
-    object-fit: cover;
+    width: 100%;
+    object-fit: contain;
 }
 
 
@@ -228,7 +233,7 @@ html{
 }
 #blog-content .post .title{
     font-size: 30px;
-    color: #5270FF
+    color: #5270FF;
 }
 #blog-content .post .preview-img img{
     max-width: 125px;
