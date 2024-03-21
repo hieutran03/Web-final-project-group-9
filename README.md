@@ -1,5 +1,7 @@
 # Lot-tich SHOP
-Mục tiêu: Xây dựng một trang web bán hàng bằng ngôn ngữ JavaScript.
+Mục tiêu: Xây dựng một trang web bán hàng.
+Ngôn ngữ: Javascript
+Framework: Reactjs(Frontend), Expressjs(Backend)
 # Tác giả
 Nguyễn Trọng Tấn Phong
 
