@@ -175,15 +175,18 @@ html{
     width: 100%;
     position: relative;
 }
-div.sider{
+div.sidebar{
     margin: 10px;
     padding: 0px !important;
+    overflow: scroll;
+    overflow-x: hidden;
 }
-.sider .title{
+.sidebar .title{
     background-color: #5270FF;
     color: white;
 }
-.sider .body a{
+.sidebar .content-wrapper a{
+    height: 100vh;
     text-decoration: none;
 
 }
