@@ -19,11 +19,11 @@ Hà Lê Phú
 
 Step 1:
 ```
-cd backend
+cd backend-api
 npm install
 npm start
 ```
 
 Step 2:
 
-Tạo file .env với nội dung đã gửi trong group chat (vẫn trong folder backend nha)
+Tạo file .env với nội dung đã gửi trong group chat (vẫn trong folder backend-api)
