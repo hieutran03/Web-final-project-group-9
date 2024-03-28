@@ -3,6 +3,7 @@ Mục tiêu: Xây dựng một trang web bán hàng.
 Ngôn ngữ: Javascript
 Framework: Reactjs(Frontend), Expressjs(Backend)
 # Tác giả
+NHÓM 9
 Nguyễn Trọng Tấn Phong-21522460
 
 Trần Hoài An-21520553
