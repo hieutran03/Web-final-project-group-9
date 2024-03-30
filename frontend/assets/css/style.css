@@ -243,6 +243,95 @@ div.sidebar{
     object-fit: contain;
 }
 
+.cart-content {
+    margin-left: 20%;
+    margin-right: 20%;
+    margin-bottom: 1%;
+    position: relative;
+}
+
+.cart-content .cart-item {
+    margin: 5%;
+    height: 100px;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 80% solid #ccc;
+}
+
+.cart-item .img-div {
+    width: 25%;
+    height: 100%;
+    float: left;
+}
+
+.cart-item .name-div {
+    width: 50%;
+    height: 100%;
+    float: left;
+}
+
+.cart-item .price-div {
+    width: 25%;
+    height: 100%;
+    float: left;
+}
+
+.price-div span {
+    float: right;
+    vertical-align: middle;
+}
+
+.price-div div button {
+    float: right;
+    width: 30%;
+    border-radius: 2%;
+    margin: 2%;
+    border: none;
+    border-radius: 5px;
+}
+
+.item-pic {
+    height: 100%;
+    float: left;
+}
+
+.order-bt {
+    margin: 2%;
+    margin-left: 5%;
+    width: 90%;
+    height: 3em;
+    border: none;
+    border-radius: 10px;
+    background-color: #5270FF;
+    color: #fff;
+
+}
+
+#detailProduct {
+    margin-left: 15%;
+    margin-bottom: 1%;
+    width: 70%;
+    border: 1px solid #6a6a6a;
+}
+
+#div-detail-img {
+    margin: 5%;
+    display: block;
+    
+}
+#div-detail-img img {
+    width: 80%;
+    align-self: center;
+}
+
+#div-detail-info {
+    padding: 5%;
+    display: block;
+}
+
+.pricetext {
+    color:#3a4fb8;
+}
 
 #footer{
     background-color: #152026;
