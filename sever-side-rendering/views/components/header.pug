@@ -1,0 +1,22 @@
+header.container-fluid.py-2.bg-info
+  .row.container-fluid.align-items-center.justify-content-center
+    .col-2.d-flex.flex-row.align-items-center.justify-content-center
+      a(href='index.html')
+        img.img-fluid.rounded.w-75(src='../asset/images/TechStore-Logo.png' alt='tech_store_logo')
+    .col-7.d-flex.flex-row.bg-white.rounded.p-1
+      input.form-control.border-0(type='text' placeholder='Tìm kiếm' aria-label='Username')
+      button.btn.btn-info(type='button') Search
+    .col-1.d-flex.flex-row.align-items-center.justify-content-center
+      button.btn.btn-info.w-75(type='button')
+        img.img-fluid.w-100(src='../asset/images/cart.png' alt='add-to-cart')
+    .col-2.d-flex.flex-row.align-items-center.justify-content-center
+      .dropdown.row.d-flex.flex-row.align-items-center.justify-content-between.mx-4
+        button#dropdownUser.btn.btn-info.dropdown-toggle.d-flex.flex-row.align-items-center.justify-content-between(type='button' data-bs-toggle='dropdown')
+          .row.d-flex.flex-row.align-items-center.justify-content-between
+            img.img-fluid.col-4(src='../asset/images/ava.png' alt='user-ava')
+            span.col-8.fw-bold Đăng nhập
+        ul.dropdown-menu(aria-labelledby='dropdownUser')
+          li
+            a.dropdown-item(href='#') Thông tin cá nhân
+          li
+            a.dropdown-item(href='login.html') Đăng xuất
