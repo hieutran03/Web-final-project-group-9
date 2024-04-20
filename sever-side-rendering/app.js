@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+var cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
@@ -19,6 +20,7 @@ app.set("views", `${__dirname}/views`);
 app.set("view engine", "pug");
 
 //Middleware
+app.use(cookieParser())
 app.use(bodyParser.urlencoded({ extended: false }));
 //app.use(bodyParser.json());
 app.use(morgan('tiny'));

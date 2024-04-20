@@ -4,8 +4,12 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
+const { getAuth } = require('../middlewares/auth');
 
-router.get('/login', async (req, res) => {
+router.get('/login',getAuth, async (req, res) => {
+  if(req.user){
+    return res.redirect('/');
+  }
   res.render('pages/login', { pageTitle: 'Login' });
 });
 
@@ -27,7 +31,7 @@ router.post('/login', async (req, res) => {
       { expiresIn: '1d' }
     )
 
-    res.cookie("token", user.token);
+    res.cookie("token", token, {maxAge: 24*3600*1000});
     res.redirect('/');
   } else {
     res.redirect('/users/login');
@@ -35,7 +39,10 @@ router.post('/login', async (req, res) => {
 
 })
 
-router.get('/register', async (req, res) => {
+router.get('/register', getAuth, async (req, res) => {
+  if(req.user){
+    return res.redirect('/');
+  }
   res.render('pages/register', { pageTitle: 'Register' });
 });
 

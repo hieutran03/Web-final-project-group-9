@@ -11,12 +11,17 @@ header.container-fluid.py-2.bg-info
         img.img-fluid.w-100(src='../asset/images/cart.png' alt='add-to-cart')
     .col-2.d-flex.flex-row.align-items-center.justify-content-center
       .dropdown.row.d-flex.flex-row.align-items-center.justify-content-between.mx-4
-        button#dropdownUser.btn.btn-info.dropdown-toggle.d-flex.flex-row.align-items-center.justify-content-between(type='button' data-bs-toggle='dropdown')
-          .row.d-flex.flex-row.align-items-center.justify-content-between
-            img.img-fluid.col-4(src='../asset/images/ava.png' alt='user-ava')
-            span.col-8.fw-bold Đăng nhập
-        ul.dropdown-menu(aria-labelledby='dropdownUser')
-          li
-            a.dropdown-item(href='#') Thông tin cá nhân
-          li
-            a.dropdown-item(href='login.html') Đăng xuất
+        if(user)
+          button#dropdownUser.btn.btn-info.dropdown-toggle.d-flex.flex-row.align-items-center.justify-content-between(type='button' data-bs-toggle='dropdown')
+            .row.d-flex.flex-row.align-items-center.justify-content-between
+              img.img-fluid.col-4(src='../asset/images/ava.png' alt='user-ava')
+              span.col-8.fw-bold #{user.username}
+          ul.dropdown-menu(aria-labelledby='dropdownUser')
+            li
+              a.dropdown-item(href='#') Thông tin cá nhân
+            li
+              a.dropdown-item(href='login.html') Đăng xuất
+        else
+          a#dropdownUser.btn.btn-info.dropdown-toggle.d-flex.flex-row.align-items-center.justify-content-between(href='/users/login')
+            .row.d-flex.flex-row.align-items-center.justify-content-between
+              span.col-8.fw-bold Đăng nhập

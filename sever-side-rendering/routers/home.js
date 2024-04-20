@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 router.get('/', async (req, res) => {
-  res.render('pages/home', { pageTitle: 'Home' });
+  res.render('pages/home', { pageTitle: 'Home', user:req.user });
 });
 // router.get('/login', async (req, res) => {
 //   res.render('pages/login', { pageTitle: 'Login' });
