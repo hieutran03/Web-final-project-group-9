@@ -34,17 +34,33 @@ const uploadOptions = multer({ storage: storage })
 router.get('/', async (req, res) => {
   //Filter and get products by category
   //localhost:3000/api/v1/products?categories=id1,id2,id3
-  let filter = {};
-  if (req.query.categories) {
-    filter = { category: req.query.categories.split(',') };
-  }
+  // let filter = {};
+  // if (req.query.categories) {
+  //   filter = { category: req.query.categories.split(',') };
+  // }
 
-  const productList = await Product.find(filter).select('-_id -__v');
+  // const productList = await Product.find(filter).select('-_id -__v');
 
-  if (!productList) {
-    res.status(500).json({ success: false })
+  // if (!productList) {
+  //   res.status(500).json({ success: false })
+  // }
+  // res.send(productList);
+  const products = await Product.find({
+    deleted: false,
+  });
+  const pagination = {
+    currentPage: 1,
+    totalPage: 2,
   }
-  res.send(productList);
+  // products.forEach((item, index, arr)=>{
+  //   arr[index].price = new Intl.NumberFormat().format(products.price);
+  //   console.log(arr[index]);
+  // });
+  res.render('pages/products', {
+    user: req.user,
+    pagination: pagination,
+    products: products
+  });
 })
 
 router.get('/:id', async (req, res) => {
@@ -60,28 +76,30 @@ router.get('/:id', async (req, res) => {
   res.send(product);
 })
 
-router.post('/', uploadOptions.single('image'), async (req, res) => {
-  if (!mongoose.isValidObjectId(req.body.category)) {
-    return res.status(400).send('Invalid Category ID');
-  }
+// router.post('/', uploadOptions.single('image'), async (req, res) => {
+router.post('/', async (req, res) => {
+  // if (!mongoose.isValidObjectId(req.body.category)) {
+  //   return res.status(400).send('Invalid Category ID');
+  // }
 
-  const file = req.file;
-  if (!file) return res.status(400).send('No image in the request');
+  // const file = req.file;
+  // if (!file) return res.status(400).send('No image in the request');
 
-  const fileName = req.file.filename
-  const basePath = `${req.protocol}://${req.get('host')}/public/uploads/`;
-
+  // const fileName = req.file.filename
+  // const basePath = `${req.protocol}://${req.get('host')}/public/uploads/`;
+  console.log(req.body);
   let product = new Product({
     name: req.body.name,
     description: req.body.description,
-    image: `${basePath}${fileName}`,
-    brand: req.body.brand,
-    price: req.body.price,
+    // image: `${basePath}${fileName}`,
+    image: req.body.image,
+    // brand: req.body.brand,
+    price: parseInt(req.body.price),
     category: req.body.category,
-    countInStock: req.body.countInStock,
-    rating: req.body.rating,
-    numReviews: req.body.numReviews,
-    dateCreated: req.body.dateCreated
+    countInStock: parseInt(req.body.countInStock),
+    // rating: req.body.rating,
+    // numReviews: req.body.numReviews,
+    // dateCreated: req.body.dateCreated
   })
   product = await product.save();
 
