@@ -1,0 +1,316 @@
+//register
+POST /api/v1/users/register HTTP/1.1
+Host: localhost:3000
+sec-ch-ua: "Not(A:Brand";v="24", "Chromium";v="122"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Windows"
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.6261.112 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: none
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Content-Type: application/json
+Content-Length: 114
+
+{"username":"test",
+"password":"test",
+"email":"test@local","address":"this is address",
+"isAdmin":false
+}
+____________________________________________________________________________
+//login
+POST /api/v1/users/login HTTP/1.1
+Host: localhost:3000
+sec-ch-ua: "Not(A:Brand";v="24", "Chromium";v="122"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Windows"
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.6261.112 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: none
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Content-Type: application/json
+Content-Length: 48
+
+{"email":"test@local",
+"password":"test"
+}
+
+=> Lấy token và add header để xử dụng các API khác:
+Authorization: Bearer <token>
+____________________________________________________________________________
+//orders
+===Create order
+POST /api/v1/orders/ HTTP/1.1
+Host: localhost:3000
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWZlZTQwMWUzMWYzMjMzNmM2YWE4NWQiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE3MTEyMDM0MzAsImV4cCI6MTcxMTI4OTgzMH0.hRh_Kizfy7u4dn7aMM1klHsHkJPk6nB64gjcXjWhJxg
+sec-ch-ua: "Not(A:Brand";v="24", "Chromium";v="122"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Windows"
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.6261.112 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: none
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Content-Type: application/json
+Content-Length: 360
+
+{
+    "orderItems" : [
+        {
+            "quantity": 3,
+            "product" : "65f7f630ed1818128fdb87bb"
+        },
+        {
+            "quantity": 2,
+            "product" : "65f7f746a2fd6f0c62460da7"
+        }
+    ],
+    "shippingAddress" : "Flowers Street , 45",
+    "phone": "+420702241333",
+    "user": "65f866ea28e268dee1491447"
+}
+
+===Get all order
+GET /api/v1/orders/ HTTP/1.1
+Host: localhost:3000
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWZlZTQwMWUzMWYzMjMzNmM2YWE4NWQiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE3MTEyMDM0MzAsImV4cCI6MTcxMTI4OTgzMH0.hRh_Kizfy7u4dn7aMM1klHsHkJPk6nB64gjcXjWhJxg
+sec-ch-ua: "Not(A:Brand";v="24", "Chromium";v="122"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Windows"
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.6261.112 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: none
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+
+===Get deatails order
+GET /api/v1/orders/65feeb6f480bfa728e840ad2 HTTP/1.1
+Host: localhost:3000
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWZlZTQwMWUzMWYzMjMzNmM2YWE4NWQiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE3MTEyMDM0MzAsImV4cCI6MTcxMTI4OTgzMH0.hRh_Kizfy7u4dn7aMM1klHsHkJPk6nB64gjcXjWhJxg
+sec-ch-ua: "Not(A:Brand";v="24", "Chromium";v="122"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Windows"
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.6261.112 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: none
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+
+===Update status order
+PUT /api/v1/orders/65feeb6f480bfa728e840ad2 HTTP/1.1
+Host: localhost:3000
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWZlZTQwMWUzMWYzMjMzNmM2YWE4NWQiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE3MTEyMDM0MzAsImV4cCI6MTcxMTI4OTgzMH0.hRh_Kizfy7u4dn7aMM1klHsHkJPk6nB64gjcXjWhJxg
+sec-ch-ua: "Not(A:Brand";v="24", "Chromium";v="122"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Windows"
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.6261.112 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: none
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Content-Type: application/json
+Content-Length: 26
+
+{
+"status":"completed"
+}
+
+===Delete order
+DELETE /api/v1/orders/65fef8b82fdaf32624983cd HTTP/1.1
+Host: localhost:3000
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWZlZTQwMWUzMWYzMjMzNmM2YWE4NWQiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE3MTEyMDM0MzAsImV4cCI6MTcxMTI4OTgzMH0.hRh_Kizfy7u4dn7aMM1klHsHkJPk6nB64gjcXjWhJxg
+sec-ch-ua: "Not(A:Brand";v="24", "Chromium";v="122"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Windows"
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.6261.112 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: none
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+
+===Get sum totalprice
+GET /api/v1/orders/get/totalsales HTTP/1.1
+Host: localhost:3000
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWZlZTQwMWUzMWYzMjMzNmM2YWE4NWQiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE3MTEyMDM0MzAsImV4cCI6MTcxMTI4OTgzMH0.hRh_Kizfy7u4dn7aMM1klHsHkJPk6nB64gjcXjWhJxg
+sec-ch-ua: "Not(A:Brand";v="24", "Chromium";v="122"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Windows"
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.6261.112 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: none
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+
+===Get count of orders
+GET /api/v1/orders/get/count HTTP/1.1
+Host: localhost:3000
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWZlZTQwMWUzMWYzMjMzNmM2YWE4NWQiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE3MTEyMDM0MzAsImV4cCI6MTcxMTI4OTgzMH0.hRh_Kizfy7u4dn7aMM1klHsHkJPk6nB64gjcXjWhJxg
+sec-ch-ua: "Not(A:Brand";v="24", "Chromium";v="122"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Windows"
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.6261.112 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: none
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+
+===Get deatails order
+GET /api/v1/orders/get/userorders/65f866ea28e268dee1491447 HTTP/1.1
+Host: localhost:3000
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWZlZTQwMWUzMWYzMjMzNmM2YWE4NWQiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE3MTEyMDM0MzAsImV4cCI6MTcxMTI4OTgzMH0.hRh_Kizfy7u4dn7aMM1klHsHkJPk6nB64gjcXjWhJxg
+sec-ch-ua: "Not(A:Brand";v="24", "Chromium";v="122"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Windows"
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.6261.112 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: none
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+
+____________________________________________________________________________
+//products
+===POST new product (used with only 1 image, if you want upload more image, upload main image and get id new product, used it with PUT /api/v1/products/gallery-images/:idProduct to upload more images)
+POST /api/v1/products/ HTTP/1.1
+Host: localhost:3000
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWZlZTQwMWUzMWYzMjMzNmM2YWE4NWQiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE3MTEyMDM0MzAsImV4cCI6MTcxMTI4OTgzMH0.hRh_Kizfy7u4dn7aMM1klHsHkJPk6nB64gjcXjWhJxg
+sec-ch-ua: "Not(A:Brand";v="24", "Chromium";v="122"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Windows"
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.6261.112 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: none
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Content-Length: 1183
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryZSXjpSuJF2taOqW1
+
+------WebKitFormBoundaryZSXjpSuJF2taOqW1
+Content-Disposition: form-data; name="image"; filename="originasd.png"
+Content-type: image/png
+
+This is content of origin.png file
+------WebKitFormBoundaryZSXjpSuJF2taOqW1
+Content-Disposition: form-data; name="name"
+
+test-product-name-123
+------WebKitFormBoundaryZSXjpSuJF2taOqW1
+Content-Disposition: form-data; name="description"
+
+description test
+------WebKitFormBoundaryZSXjpSuJF2taOqW1
+Content-Disposition: form-data; name="brand"
+
+brand-test
+------WebKitFormBoundaryZSXjpSuJF2taOqW1
+Content-Disposition: form-data; name="price"
+
+1000
+------WebKitFormBoundaryZSXjpSuJF2taOqW1
+Content-Disposition: form-data; name="category"
+
+65f8773a25da96f3c0549cc3
+------WebKitFormBoundaryZSXjpSuJF2taOqW1
+Content-Disposition: form-data; name="countInStock"
+
+3
+------WebKitFormBoundaryZSXjpSuJF2taOqW1
+Content-Disposition: form-data; name="rating"
+
+4
+------WebKitFormBoundaryZSXjpSuJF2taOqW1
+Content-Disposition: form-data; name="numReviews"
+
+6
+------WebKitFormBoundaryZSXjpSuJF2taOqW1
+Content-Disposition: form-data; name="dateCreated"
+
+2024-03-18T08:17:12.766+00:00
+------WebKitFormBoundaryZSXjpSuJF2taOqW1--
+
+===Put upload more images for specified product
+PUT /api/v1/products/gallery-images/65ff0fbfa480300295719ff0 HTTP/1.1
+Host: localhost:3000
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWZlZTQwMWUzMWYzMjMzNmM2YWE4NWQiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE3MTEyMDM0MzAsImV4cCI6MTcxMTI4OTgzMH0.hRh_Kizfy7u4dn7aMM1klHsHkJPk6nB64gjcXjWhJxg
+sec-ch-ua: "Not(A:Brand";v="24", "Chromium";v="122"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Windows"
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.6261.112 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: none
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Content-Length: 410
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryZSXjpSuJF2taOqW1
+
+------WebKitFormBoundaryZSXjpSuJF2taOqW1
+Content-Disposition: form-data; name="images"; filename="imagesadd1.png"
+Content-type: image/png
+
+This is content of imagesadd1.png file
+------WebKitFormBoundaryZSXjpSuJF2taOqW1
+Content-Disposition: form-data; name="images"; filename="imagesadd2.png"
+Content-type: image/png
+
+This is content of imagesadd2.png file
+------WebKitFormBoundaryZSXjpSuJF2taOqW1--

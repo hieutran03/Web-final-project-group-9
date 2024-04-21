@@ -1,0 +1,23 @@
+extends ../../layouts/default.pug
+include ../../mixins/pagination.pug
+
+block main
+  .container-fluid.d-flex.flex-column.bg-light
+    section.container-lg.d-flex.p-2
+      span.text-dark
+        a(href='/') Trang chủ
+        |  / 
+        a(href='/products') Sản phẩm
+    section.container-lg.bg-white.d-flex.flex-column.rounded
+      // #Advertisement
+      .row.py-3
+        span.fs-3 Laptop
+      .row.p-2
+        each product in products
+          .col-3.bg-white.p-2.border.rounded.d-flex.flex-column
+            a(class="image-container" href='product.html')
+              img.product-img.img-fluid.rounded(src=product.image alt='product-techstore')
+            a.fs-6.text-dark.text-decoration-none(href='product.html') #{product.name}
+            span.fs-5.text-primary.fw-bold #{product.price}
+        
+      +pagination(pagination)

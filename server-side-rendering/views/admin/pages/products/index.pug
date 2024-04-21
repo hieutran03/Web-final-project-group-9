@@ -1,0 +1,129 @@
+extends ../../layouts/default.pug
+include ../../mixins/pagination.pug
+block main
+  .d-flex.flex-wrap.flex-md-nowrap.align-items-center.pb-2.mb-3.border-bottom
+    h1 Danh sách sản phẩm
+
+        //- .card.mb-3
+        //-   .card-header Bộ lọc và Tìm kiếm
+        //-   .card-body
+        //-     .row
+        //-       .col-6
+        //-         +filter-status(filterStatus)
+        //-       .col-6
+        //-         +search(keyword)
+
+        //- .card.mb-3
+        //-   .card-header Sắp xếp
+        //-   .card-body
+        //-     .row
+        //-       .col-4
+        //-         +sort()
+        
+  .card.mb-3
+    .card-header Danh sách
+      .card-body
+        .row
+          //- .col-8
+          //-   if(role.permissions.includes("products_edit"))
+          //-     +form-change-multi(`${prefixAdmin}/products/change-multi?_method=PATCH`)
+          .col-4
+            a(
+              href=`/admin/products/create`
+              class="btn btn-outline-success"
+            ) + Thêm mới
+
+        table(
+          class="table table-hover table-sm"
+          checkbox-multi
+        )
+          thead
+            tr
+              th
+                input(type="checkbox" name="checkall")
+              th STT
+              th Hình ảnh
+              th Tên
+              th Giá
+              th Vị trí
+              th Trạng thái
+              th Hành động
+
+          tbody
+            each item, index in products
+              tr 
+                td
+                  input(
+                    type="checkbox"
+                    name="id"
+                    value=item.id
+                  )
+                td #{pagination.limitItems*(pagination.currentPage - 1) + (index+1)}
+                td
+                  img(
+                    src=item.image
+                    alt=item.name
+                    width="100px"
+                    height="auto"
+                  )
+                td #{item.name}
+                td #{item.price}$
+                td
+                  input(
+                    type="number"
+                    value= 10
+                    style="width: 60px"
+                    min="1"
+                    name="position"
+                  )
+                td
+                  if(item.status == "active")
+                    a(
+                      href="javascript:;"
+                      data-status=item.status
+                      data-id=item.id
+                      button-change-status
+                      class="badge badge-success"
+                    ) Hoạt động
+                  else
+                    a(
+                      href="javascript:;"
+                      data-status=item.status
+                      data-id=item.id
+                      button-change-status
+                      class="badge badge-danger"
+                    ) Dừng hoạt động
+                
+                td
+                  a(
+                    href=`admin/products/detail/${item.id}`
+                    class="btn btn-secondary btn-sm"
+                    ) Chi tiết
+                  a(
+                    href=`admin/products/edit/${item.id}`
+                    class="btn btn-warning btn-sm"
+                    ) Sửa
+                  button(
+                    class="btn btn-danger btn-sm ml-1"
+                    button-delete
+                    data-id=item.id
+                  ) Xóa
+
+
+  //- +pagination(pagination)
+
+  form(
+    action=""
+    method="POST"
+    id="form-change-status"
+    data-path=`admin/products/change-status`
+  )
+
+  form(
+    action=""
+    method="POST"
+    id="form-delete-item"
+    data-path=`admin/products/delete`
+  )
+
+  script(src = "/admin/js/products.js")
