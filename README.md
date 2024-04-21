@@ -1,6 +1,6 @@
-# Lot-tich SHOP
+# Techstore
 Mục tiêu: Xây dựng một trang web bán hàng.
-Ngôn ngữ: Javascript
+Ngôn ngữ: Javascript.
 Framework: Reactjs(Frontend), Expressjs(Backend)
 # Tác giả
 NHÓM 9
