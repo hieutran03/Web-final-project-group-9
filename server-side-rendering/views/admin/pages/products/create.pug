@@ -4,9 +4,10 @@ block main
   h1(class="mb-4") Thêm mới sản phẩm
 
   form(
-    action=`admin/products/create`
+    action=`/admin/products/create`
     id="form-create-product"
     method="POST"
+    enctype="multipart/form-data"
   )
     div(class="form-group")
       label(for="title") Tên sản phẩm
@@ -65,7 +66,7 @@ block main
         type="number"
         class="form-control"
         id="stock"
-        name="stock"
+        name="countInStock"
         value="0"
         min="0"
       )
@@ -78,7 +79,7 @@ block main
         type="file"
         class="form-control-file"
         id="thumbnail"
-        name="thumbnail"
+        name="image"
         accept="image/*"
         upload-image-input
       )
