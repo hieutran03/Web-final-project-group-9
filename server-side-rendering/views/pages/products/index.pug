@@ -14,10 +14,13 @@ block main
         span.fs-3 Laptop
       .row.p-2
         each product in products
-          .col-3.bg-white.p-2.border.rounded.d-flex.flex-column
-            a(class="image-container" href='product.html')
-              img.product-img.img-fluid.rounded(src=product.image alt='product-techstore')
-            a.fs-6.text-dark.text-decoration-none(href='product.html') #{product.name}
-            span.fs-5.text-primary.fw-bold #{product.price}
+          .product-item.col-3.bg-white.p-2.border.rounded.d-flex.flex-column
+            .inner-content
+              a(class="image-container" href='product.html')
+                img.product-img.img-fluid.rounded(src=product.image alt='product-techstore')
+              a.fs-6.text-dark.text-decoration-none(href='product.html') #{product.name}
+              .inner-price-new #{product.newPrice}
+              .inner-price-old #{product.oldPrice}
+              .inner-discount Sales -#{product.discountPercentage}%
         
       +pagination(pagination)

@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 var cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser');
+const methodOverride = require("method-override");
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -24,6 +25,7 @@ app.set("view engine", "pug");
 app.use(cookieParser())
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(methodOverride('_method'));
 //app.use(morgan('tiny'));
 //app.use(authJwt());
 app.use(errorHandler);
@@ -33,7 +35,7 @@ routes(app);
 adminRoutes(app);
 
 //Database
-mongoose.connect('mongodb+srv://admin:admin@ecommerce.fh3ikky.mongodb.net/?retryWrites=true&w=majority&appName=ecommerce')
+mongoose.connect(process.env.MONGODB_URI)
 .then(() => {
     console.log('Database connection is ready ...');
 })

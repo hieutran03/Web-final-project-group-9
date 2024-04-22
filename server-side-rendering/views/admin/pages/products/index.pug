@@ -71,7 +71,7 @@ block main
                 td
                   input(
                     type="number"
-                    value= 10
+                    value= item.position
                     style="width: 60px"
                     min="1"
                     name="position"
@@ -96,11 +96,11 @@ block main
                 
                 td
                   a(
-                    href=`admin/products/detail/${item.id}`
+                    href=`/admin/products/detail/${item.id}`
                     class="btn btn-secondary btn-sm"
                     ) Chi tiết
                   a(
-                    href=`admin/products/edit/${item.id}`
+                    href=`/admin/products/edit/${item.id}`
                     class="btn btn-warning btn-sm"
                     ) Sửa
                   button(
@@ -116,14 +116,14 @@ block main
     action=""
     method="POST"
     id="form-change-status"
-    data-path=`admin/products/change-status`
+    data-path=`/admin/products/change-status`
   )
 
   form(
     action=""
     method="POST"
     id="form-delete-item"
-    data-path=`admin/products/delete`
+    data-path=`/admin/products/delete`
   )
 
   script(src = "/admin/js/products.js")
