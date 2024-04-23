@@ -4,7 +4,7 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const multer = require('multer');
-
+const searchHelper = require('../helpers/search');
 const FILE_TYPE_MAP = {
   'image/png': 'png',
   'image/jpeg': 'jpeg',
@@ -45,10 +45,17 @@ router.get('/', async (req, res) => {
   //   res.status(500).json({ success: false })
   // }
   // res.send(productList);
-  const products = await Product.find({
+  const find = {
     deleted: false,
     status: 'active',
-  });
+  }
+  const objectSearch = searchHelper(req.query);
+  if (objectSearch.regex) {
+    find.name = objectSearch.regex;
+  }
+  
+  const products = await Product.find(find)
+    .sort({position: 'desc'});
   const pagination = {
     currentPage: 1,
     totalPage: 2,
@@ -60,7 +67,8 @@ router.get('/', async (req, res) => {
   res.render('pages/products', {
     user: req.user,
     pagination: pagination,
-    products: products
+    products: products,
+    keywork: objectSearch.keywork,
   });
 })
 
