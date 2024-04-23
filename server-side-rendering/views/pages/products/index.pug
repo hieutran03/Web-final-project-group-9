@@ -16,9 +16,9 @@ block main
         each product in products
           .product-item.col-3.bg-white.p-2.border.rounded.d-flex.flex-column
             .inner-content
-              a(class="image-container" href='product.html')
+              a(class="image-container" href=`/products/detail/${product.id}`)
                 img.product-img.img-fluid.rounded(src=product.image alt='product-techstore')
-              a.fs-6.text-dark.text-decoration-none(href='product.html') #{product.name}
+              a.fs-6.text-dark.text-decoration-none(href=`/products/detail/${product.id}`) #{product.name}
               .inner-price-new #{product.newPrice}
               .inner-price-old #{product.oldPrice}
               .inner-discount Sales -#{product.discountPercentage}%
