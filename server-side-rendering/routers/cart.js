@@ -26,8 +26,17 @@ router.post('/:productId', async (req, res) => {
   }
   const updatedUser = await user.save();
   req.user = updatedUser;
-  console.log(updatedUser);
   res.redirect('/products');
 });
-
+router.delete('/delete/:productId', async (req, res) => {
+  const productId = req.params.productId;
+  const user = req.user;
+  const index = user.cart.findIndex(item => item.products.toString() === productId);
+  if(index >= 0){
+    user.cart.splice(index, 1);
+  }
+  const updatedUser = await user.save();
+  req.user = updatedUser;
+  res.redirect('/cart');
+});
 module.exports = router;
