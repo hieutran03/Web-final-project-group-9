@@ -67,7 +67,7 @@ block main
                     height="auto"
                   )
                 td #{item.name}
-                td #{item.price}$
+                td #{item.oldPrice}
                 td
                   input(
                     type="number"
@@ -110,7 +110,7 @@ block main
                   ) Xóa
 
 
-  //- +pagination(pagination)
+  +pagination(pagination)
 
   form(
     action=""

@@ -3,18 +3,35 @@ const { Product } = require('../../models/product');
 const { Category } = require('../../models/category');
 const upload = require('../../middlewares/multer');
 const uploadCloud = require('../../middlewares/uploadCloud');
+const paginationHelper = require('../../helpers/pagination');
 const router = express.Router();
 
 router.get('/', async (req, res) => {
-  const products = await Product.find({ deleted: false }).sort({ position: 'desc' });
-  const pagination = {
-    limitItems: 5,
-    currentPage: 1,
-  }
+  const find = {
+    deleted: false
+  };
+  // Pagination
+  const countProducts = await Product.countDocuments(find);
+
+  let objectPagination = paginationHelper(
+    {
+      currentPage: 1,
+      limitItems: 4,
+    },
+    req.query,
+    countProducts
+  );
+  // End Pagination
+
+  const products = await Product.find(find)
+    .sort({ position: 'desc' })
+    .limit(objectPagination.limitItems)
+    .skip(objectPagination.skip);
+
   res.render('admin/pages/products/index', {
     currentPage: 'products',
     products: products,
-    pagination: pagination,
+    pagination: objectPagination,
   });
 });
 

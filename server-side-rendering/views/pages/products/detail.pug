@@ -1,0 +1,65 @@
+extends ../../layouts/default.pug
+block main
+  .container-fluid.d-flex.flex-column.bg-light.gap-2
+    section.container-lg.d-flex.p-2
+      span.text-dark
+        a(href='/') Trang chủ
+        |  / 
+        a(href='/products') Sản phẩm
+        |  / 
+        span #{product.name}
+    section.container-lg.bg-white.d-flex.flex-column.rounded
+      // #Product
+      .row.py-3
+        .col-5
+          img.img-fluid.rounded(src=product.image alt='advertisement')
+        .col-7.d-flex.flex-column.gap-3
+          span.fs-4 #{product.name}
+          span.fs-3.fw-bold.text-info #{product.newPrice}
+          span.fs-7 Số lượng: #{product.countInStock}
+          form(method='POST' data-product-id = product._id)#form-user-service.d-flex.flex-row.w-25
+            .btn-group.input-group(role='group' aria-label='Basic example')
+              button.btn.btn-light.border(type='button' onclick='decQuantity()') -
+              input#product-quantity.form-control.text-center(type='text' name='quantity' value='1' aria-label='Quantity')
+              button.btn.btn-light.border(type='button' onclick='incQuantity()') +
+          .d-flex.flex-column.w-50
+            button#add-to-cart.btn.btn-info.fw-bold.py-2(type='button') THÊM VÀO GIỎ HÀNG
+          .d-flex.flex-column.w-50
+            button#buy-now.btn.btn-primary.fw-bold.py-2(type='button') MUA NGAY
+    section.container-lg.bg-white.d-flex.flex-column.my-3.rounded
+      .row
+        .col-7.d-flex.flex-column.gap-2.p-3.border-end
+          span.fs-5.fw-bold Thông tin sản phẩm
+          img(src='/asset/images/main-ads.jpg' alt='product-info')
+          p
+            | #{product.description}
+        .col-5.d-flex.flex-column.gap-2.p-3
+          span.fs-5.fw-bold Sản phẩm tương tự
+          .row.bg-white.p-2.rounded.me-1
+            .col-4
+              a(href='product.html')
+                img.img-fluid.rounded(src='https://tallzebradesigns.co.uk/wp-content/uploads/2020/12/Banner-Ads.jpg' alt='advertisement')
+            .col-8.d-flex.flex-column
+              a.fs-6.text-dark.text-decoration-none(href='product.html') Laptop văn phòng QGKAA-24325
+              span.fs-5.text-primary.fw-bold 15.000.000đ
+          .row.bg-white.p-2.rounded.me-1
+            .col-4
+              a(href='product.html')
+                img.img-fluid.rounded(src='https://tallzebradesigns.co.uk/wp-content/uploads/2020/12/Banner-Ads.jpg' alt='advertisement')
+            .col-8.d-flex.flex-column
+              a.fs-6.text-dark.text-decoration-none(href='product.html') Laptop văn phòng QGKAA-24325
+              span.fs-5.text-primary.fw-bold 15.000.000đ
+          .row.bg-white.p-2.rounded.me-1
+            .col-4
+              a(href='product.html')
+                img.img-fluid.rounded(src='https://tallzebradesigns.co.uk/wp-content/uploads/2020/12/Banner-Ads.jpg' alt='advertisement')
+            .col-8.d-flex.flex-column
+              a.fs-6.text-dark.text-decoration-none(href='product.html') Laptop văn phòng QGKAA-24325
+              span.fs-5.text-primary.fw-bold 15.000.000đ
+          .row.bg-white.p-2.rounded.me-1
+            .col-4
+              a(href='product.html')
+                img.img-fluid.rounded(src='https://tallzebradesigns.co.uk/wp-content/uploads/2020/12/Banner-Ads.jpg' alt='advertisement')
+            .col-8.d-flex.flex-column
+              a.fs-6.text-dark.text-decoration-none(href='product.html') Laptop văn phòng QGKAA-24325
+              span.fs-5.text-primary.fw-bold 15.000.000đ

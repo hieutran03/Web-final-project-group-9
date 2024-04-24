@@ -61,3 +61,8 @@
   display: none;
 }
 /* End Image Preview */
+
+.pagination {
+  display: flex;
+  justify-content: center;
+}
