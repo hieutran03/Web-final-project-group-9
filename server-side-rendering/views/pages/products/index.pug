@@ -11,7 +11,7 @@ block main
     section.container-lg.bg-white.d-flex.flex-column.rounded
       // #Advertisement
       .row.py-3
-        span.fs-3 Laptop
+        span.fs-3 #{category}
       .row.p-2
         each product in products
           .product-item.col-3.bg-white.p-2.border.rounded.d-flex.flex-column
@@ -23,5 +23,5 @@ block main
               .inner-price-old #{product.oldPrice}
               .inner-discount Sales -#{product.discountPercentage}%
         
-      .pagination
-        +pagination(pagination)
+      //- .pagination
+      //-   +pagination(pagination)
