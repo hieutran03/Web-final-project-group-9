@@ -1,0 +1,25 @@
+extends ../../layouts/default.pug
+block main
+  .container-fluid.d-flex.flex-column.bg-light
+    section.container-lg.bg-white.d-flex.flex-column.my-3.rounded
+      each item in items
+        .row.m-2
+          .col-2.d-flex.flex-column.py-2
+            a(href='product.html')
+              img.img-fluid.rounded(src=item.products.image alt='advertisement')
+          .col-8.d-flex.flex-column.py-2
+            a.fs-5.fw-bold.text-dark.text-decoration-none(href=`/products/detail/${item.products.id}`) #{item.products.name}
+          .col-2.d-flex.flex-column.py-2.align-items-end.justify-content-between
+            span.fs-5.text-primary.fw-bold #{item.products.newPrice}
+            .btn-group.input-group(role='group' aria-label='Basic example')
+              button.btn.btn-light.border(type='button' onclick='decQuantity()') -
+              input#product-quantity.form-control.text-center(type='text' value=item.quantity aria-label='Quantity')
+              button.btn.btn-light.border(type='button' onclick='incQuantity()') +
+      
+      .border-top.m-2
+      .d-flex.flex-row.row.m-2
+        span.col Tổng tiền:
+        span.col.fs-5.text-primary.fw-bold.d-flex.flex-row.justify-content-end #{Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(totalPrice)}
+      .border-top.m-2
+      button.btn.btn-info.d-flex.m-2.p-0(type='button')
+        a.fs-6.text-decoration-none.text-dark.w-100.p-2(href='') Đặt hàng

@@ -1,3 +1,5 @@
+
+
 const currentPage = document.querySelector('[current-page]');
 if(currentPage){
   console.log(currentPage.getAttribute('current-page'));
