@@ -1,7 +1,7 @@
 # Techstore
 Mục tiêu: Xây dựng một trang web bán hàng.
 Ngôn ngữ: Javascript.
-Framework: Reactjs(Frontend), Expressjs(Backend)
+Framework: Expressjs(Frontend: Template engine-Pug)
 # Tác giả
 NHÓM 9
 
