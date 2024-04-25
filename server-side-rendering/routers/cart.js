@@ -7,6 +7,7 @@ router.get('/', async (req, res) => {
   const totalPrice = items.reduce((reduce, item) => {
     return reduce + (item.products.price*(100-item.products.discountPercentage))/100 * item.quantity;
   }, 0);
+  console.log(user);
   res.render('pages/cart/index', {
     items: items,
     user: user,

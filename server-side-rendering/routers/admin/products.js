@@ -70,6 +70,7 @@ router.get('/edit/:id',async (req,res)=>{
   const product = await Product.findById(req.params.id);
   const categories = await Category.find({deleted: false});
   res.render('admin/pages/products/edit',{
+    currentPage: 'products',
     product: product,
     categories: categories,
   });
