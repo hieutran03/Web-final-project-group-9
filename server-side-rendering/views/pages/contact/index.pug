@@ -1,0 +1,21 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Contact Us
+  body
+    .form-container
+      form.contact-form
+        h2 CONTACT
+        br
+        input(type="text", id="name", placeholder="Full name")
+        br
+        input(type="email", id="email", placeholder="Email")
+        br
+        input(type="text", id="subject", placeholder="Subject")
+        br
+        textarea(id="message", placeholder="message", cols="30", rows="10")
+        br
+        input(type="submit", class="submit", value="Send Message")
+    script(src='/js/contact.js')
