@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../asset/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <title>Tech store - Sản phẩm</title>
+</head>
+<body>
+    <!-- #header -->
+    <header class="container-fluid py-2 bg-info">
+        <div class="row container-fluid align-items-center justify-content-center">
+            <div class="col-2 d-flex flex-row align-items-center justify-content-center">
+                <a href="index.html"><img src="../asset/images/TechStore-Logo.png" class="img-fluid rounded w-75" alt="tech_store_logo"></a>
+            </div>
+            <div class="col-7 d-flex flex-row bg-white rounded p-1">
+                <input type="text" class="form-control border-0" placeholder="Tìm kiếm" aria-label="Username">
+                <button type="button" class="btn btn-info">Search</button>
+            </div>
+            <div class="col-1 d-flex flex-row align-items-center justify-content-center">
+                <button type="button" class="btn btn-info w-75">
+                    <a href="cart.html"><img src="../asset/images/cart.png" class="img-fluid w-100" alt="add-to-cart"></a>
+                </button>
+            </div>
+            <div class="col-2 d-flex flex-row align-items-center justify-content-center">
+                <div class="dropdown row d-flex flex-row align-items-center justify-content-between mx-4">
+                    <button type="button" class="btn btn-info dropdown-toggle d-flex flex-row align-items-center justify-content-between" id="dropdownUser" data-bs-toggle="dropdown">
+                        <div class="row d-flex flex-row align-items-center justify-content-between overflow-hidden me-1">
+                            <img src="../asset/images/ava.png" class="img-fluid col-4" alt="user-ava">
+                            <span class="col-8 fw-bold">Username</span>
+                        </div>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownUser">
+                        <li><a class="dropdown-item" href="#">Thông tin cá nhân</a></li>
+                        <li><a class="dropdown-item" href="login.html">Đăng xuất</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- #nav -->
+    <div class="topnav d-flex bg-dark">
+        <div class="dropdown row d-flex flex-row align-items-center justify-content-between mx-4">
+            <button class="btn btn-dark dropdown-toggle d-flex flex-row align-items-center" type="button" id="dropdownMenu" data-bs-toggle="dropdown">
+                <div class="row d-flex flex-row align-items-center justify-content-between ms-3">
+                    <img src="../asset/images/menu.png" class="img-fluid col-2" alt="cash">
+                    <span class="col-10 text-white">DANH MỤC SẢN PHẨM</span>
+                </div>
+            </button>
+            <ul class="dropdown-menu bg-dark" aria-labelledby="dropdownMenu">
+                <li><a class="dropdown-item" href="#">Laptop</a></li>
+                <li><a class="dropdown-item" href="#">PC</a></li>
+                <li><a class="dropdown-item" href="#">Gaming gear</a></li>
+                <li><a class="dropdown-item" href="#">Storage</a></li>
+                <li><a class="dropdown-item" href="#">Thiết bị ngoại vi</a></li>
+            </ul>
+        </div>
+        <a href="" class="row d-flex flex-row align-items-center justify-content-between">
+            <img src="../asset/images/cash.png" class="img-fluid col-2" alt="cash">
+            <span class="col-10">Hướng dẫn thanh toán</span>
+        </a>
+        <a href="" class="row d-flex flex-row align-items-center justify-content-between">
+            <img src="../asset/images/installment.png" class="img-fluid col-2" alt="cash">
+            <span class="col-10">Hướng dẫn trả góp</span>
+        </a>
+        <a href="" class="row d-flex flex-row align-items-center justify-content-between">
+            <img src="../asset/images/warranty.png" class="img-fluid col-2" alt="cash">
+            <span class="col-10">Chính sách bảo hành</span>
+        </a>
+        <a href="" class="row d-flex flex-row align-items-center justify-content-between">
+            <img src="../asset/images/hiring.png" class="img-fluid col-2" alt="cash">
+            <span class="col-10">Thông tin tuyển dụng</span>
+        </a>
+    </div>
+    <!-- #Content -->
+    <div class="container-fluid d-flex flex-column bg-light gap-2">
+        <section class="container-lg bg-white d-flex flex-column rounded my-2"> <!-- #Order -->
+            <div class="row px-3 my-2">
+                <div class="col-9"></div>
+                <div class="col-3 d-flex flex-row justify-content-end">
+                    <span class="fw-bold">Trạng thái: Giao hàng thành công</span>
+                </div>
+            </div>
+            <div class="border-top mx-3 mb-2"></div>
+            <div class="row px-3 mb-2">
+                <div class="row bg-white py-2 rounded">
+                    <div class="col-2">
+                        <a href="product.html"><img src="https://tallzebradesigns.co.uk/wp-content/uploads/2020/12/Banner-Ads.jpg" class="img-fluid rounded" alt="advertisement"></a>
+                    </div>
+                    <div class="col-8 d-flex flex-column">
+                        <a href="product.html" class="fs-5 text-dark text-decoration-none">Laptop văn phòng QGKAA-24325</a>
+                        <span class="fs-6">Số lượng: 2</span>
+                    </div>
+                    <div class="col-2 d-flex flex-column align-items-end justify-content-center">
+                        <span class="fs-5 text-primary fw-bold">15.000.000đ</span>
+                    </div>
+                </div>
+                <div class="row bg-white py-2 rounded">
+                    <div class="col-2">
+                        <a href="product.html"><img src="https://tallzebradesigns.co.uk/wp-content/uploads/2020/12/Banner-Ads.jpg" class="img-fluid rounded" alt="advertisement"></a>
+                    </div>
+                    <div class="col-8 d-flex flex-column">
+                        <a href="product.html" class="fs-5 text-dark text-decoration-none">Laptop gaming QGKAA-24325</a>
+                        <span class="fs-6">Số lượng: 1</span>
+                    </div>
+                    <div class="col-2 d-flex flex-column align-items-end justify-content-center">
+                        <span class="fs-5 text-primary fw-bold">20.000.000đ</span>
+                    </div>
+                </div>
+            </div>
+            <div class="border-top mx-3 mb-2"></div>
+            <div class="d-flex flex-column px-3 mb-2">
+                <div class="d-flex flex-row justify-content-end align-items-center">
+                    <span class="fs-5 px-3">Tổng:</span>
+                    <span class="fs-4 text-primary fw-bold">50.000.000đ</span>
+                </div>
+                <div class="d-flex flex-row justify-content-end align-items-center">
+                    <button type="button" class="btn btn-info m-2">Mua lại</button>
+                    <button type="button" class="btn btn-light m-2"><a href="order-detail.html" class="text-dark text-decoration-none">Xem chi tiết</a></button>
+                </div>
+            </div>
+        </section>
+        <section class="container-lg bg-white d-flex flex-column rounded my-2"> <!-- #Order -->
+            <div class="row px-3 my-2">
+                <div class="col-9"></div>
+                <div class="col-3 d-flex flex-row justify-content-end">
+                    <span class="fw-bold">Trạng thái: Đang giao hàng</span>
+                </div>
+            </div>
+            <div class="border-top mx-3 mb-2"></div>
+            <div class="row px-3 mb-2">
+                <div class="row bg-white py-2 rounded">
+                    <div class="col-2">
+                        <a href="product.html"><img src="https://tallzebradesigns.co.uk/wp-content/uploads/2020/12/Banner-Ads.jpg" class="img-fluid rounded" alt="advertisement"></a>
+                    </div>
+                    <div class="col-8 d-flex flex-column">
+                        <a href="product.html" class="fs-5 text-dark text-decoration-none">Laptop văn phòng QGKAA-24325</a>
+                        <span class="fs-6">Số lượng: 2</span>
+                    </div>
+                    <div class="col-2 d-flex flex-column align-items-end justify-content-center">
+                        <span class="fs-5 text-primary fw-bold">15.000.000đ</span>
+                    </div>
+                </div>
+            </div>
+            <div class="border-top mx-3 mb-2"></div>
+            <div class="d-flex flex-column px-3 mb-2">
+                <div class="d-flex flex-row justify-content-end align-items-center">
+                    <span class="fs-5 px-3">Tổng:</span>
+                    <span class="fs-4 text-primary fw-bold">30.000.000đ</span>
+                </div>
+                <div class="d-flex flex-row justify-content-end align-items-center">
+                    <button type="button" class="btn btn-info m-2" disabled>Mua lại</button>
+                    <button type="button" class="btn btn-light m-2"><a href="order-detail.html" class="text-dark text-decoration-none">Xem chi tiết</a></button>
+                </div>
+            </div>
+        </section>
+    </div>
+    <!-- #Footer -->
+    <footer class="container-fluid bg-dark py-3">
+        <div class="row container-fluid align-items-start justify-content-center">
+            <div class="col-3 d-flex flex-column align-items-start justify-content-start text-white">
+                <div class="container-fluid d-flex flex-row align-items-center justify-content-start mb-3">
+                    <img src="../asset/images/TechStore-Logo.png" class="img-fluid rounded me-3" alt="tech_store_logo">
+                </div>
+                <ul>
+                    <li>Địa chỉ: 2xx đường số 10, Linh Trung, Thủ Đức</li>
+                    <li>Số điện thoại: 0988-123-xxx</li>
+                    <li>Email: sale@techstore.com.vn</li>
+                </ul>
+            </div>
+            <div class="col-3 d-flex flex-column align-items-start justify-content-start text-white">
+                <span class="fs-5 fw-bold">Chính sách</span>
+                <ul>
+                    <li>Chính sách giao hàng</li>
+                    <li>Chính sách bảo hành</li>
+                </ul>
+            </div>
+            <div class="col-3 d-flex flex-column align-items-start justify-content-start text-white">
+                <span class="fs-5 fw-bold">Hướng dẫn</span>
+                <ul>
+                    <li>Hướng dẫn thanh toán</li>
+                    <li>Hướng dẫn trả góp</li>
+                </ul>
+            </div>
+            <div class="col-3 d-flex flex-column align-items-start justify-content-start text-white">
+                <span class="fs-5 fw-bold">Phương thức thanh toán</span>
+                <img src="../asset/images/payMethod.png" class="w-75 my-2 rounded" alt="pay-method">
+            </div>
+        </div>
+    </footer>
+    <script src=""></script>
+</body>
+</html>
