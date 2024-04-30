@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@paypal/checkout-server-sdk": "^1.0.3",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.2",
     "cloudinary": "^2.1.0",
@@ -24,6 +25,7 @@
     "mongoose-slug-updater": "^3.3.0",
     "morgan": "^1.10.0",
     "multer": "^1.4.5-lts.1",
+    "nodemailer": "^6.9.13",
     "nodemon": "^3.1.0",
     "pug": "^3.0.2",
     "streamifier": "^0.1.1"

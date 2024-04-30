@@ -7,8 +7,12 @@ header.container-fluid.py-2.bg-info
     form.col-7.d-flex.flex-row.bg-white.rounded.p-1(action = "/products")
       input(class = 'form-control border-0' type='text' placeholder='Tìm kiếm' name = 'keyword' value=keyword) 
       button.btn.btn-info(type='submit') Search
-    .col-1.d-flex.flex-row.align-items-center.justify-content-center
+    .cart-container.col-1.d-flex.flex-row.align-items-center.justify-content-center
       a.btn.btn-info.w-75(href='/cart')
+        if(user && user.cartTotal > 0)
+          span.cart-notification #{user.cartTotal}
+        else
+          span.cart-notification 0
         img.img-fluid.w-100(src='/asset/images/cart.png' alt='add-to-cart')
     .col-2.d-flex.flex-row.align-items-center.justify-content-center
       .dropdown.row.d-flex.flex-row.align-items-center.justify-content-between.mx-4

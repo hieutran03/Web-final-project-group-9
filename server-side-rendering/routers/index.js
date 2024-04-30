@@ -4,6 +4,8 @@ const productsRouter = require('./products');
 const usersRouter = require('./users');
 const ordersRouter = require('./orders');
 const cartRouter = require('./cart')
+const paymentRouter = require('./payment')
+const contactRouter = require('./contact')
 const { getAuth, requireAuth } = require('../middlewares/auth');
 
 module.exports = (app)=>{
@@ -13,4 +15,6 @@ module.exports = (app)=>{
   app.use('/users', usersRouter);
   app.use('/orders',requireAuth, ordersRouter);
   app.use('/cart', requireAuth, cartRouter);
+  app.use('/payment', paymentRouter);
+  app.use('/contact', contactRouter);
 }

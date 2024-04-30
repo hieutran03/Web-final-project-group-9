@@ -1,4 +1,5 @@
 extends ../../layouts/default.pug
+
 block main
   .container-fluid.d-flex.flex-column.bg-light
     section.container-lg.bg-white.d-flex.flex-column.my-3.rounded
@@ -15,6 +16,8 @@ block main
               button.btn.btn-light.border(type='button' onclick='decQuantity()') -
               input#product-quantity.form-control.text-center(type='text' value=item.quantity aria-label='Quantity')
               button.btn.btn-light.border(type='button' onclick='incQuantity()') +
+        form(action = `cart/delete/${item.products.id}?_method=delete`, method="post").m-2.d-flex.flex-row.justify-content-end 
+          button.btn.btn-danger(type='submit') Xóa
       
       .border-top.m-2
       .d-flex.flex-row.row.m-2
@@ -23,3 +26,9 @@ block main
       .border-top.m-2
       button.btn.btn-info.d-flex.m-2.p-0(type='button')
         a.fs-6.text-decoration-none.text-dark.w-100.p-2(href='') Đặt hàng
+      script.
+        var items = !{JSON.stringify(items)};
+        var totalPrice = #{totalPrice};
+      script(src='https://www.paypal.com/sdk/js?client-id=Ab-rm5wfaI2ZthgqL6RKBiLb48rOszx8RARcghydngiKjXXmkJqrkXJtMbJiaqbIomuv6lfwoCopy-kF')
+      script(src='/js/payment.js')
+      div#paypal

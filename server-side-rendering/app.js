@@ -3,14 +3,15 @@ const app = express();
 var cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser');
 const methodOverride = require("method-override");
-const morgan = require('morgan');
+// const morgan = require('morgan');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const authJwt = require('./helpers/jwt');
+// const authJwt = require('./helpers/jwt');
 const errorHandler = require('./helpers/error-handler');
 const routes = require('./routers');
 const adminRoutes = require('./routers/admin');
 require('dotenv/config');
+
 const api = process.env.API_URL;
 app.use(cors());
 app.use(express.static('public'));

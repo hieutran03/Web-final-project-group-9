@@ -1,1 +1,2 @@
 check lại order router lúc nhận tham số
+check tham số email có tồn tại hay không khi gửi contact

@@ -70,10 +70,11 @@ router.get('/edit/:id',async (req,res)=>{
   const product = await Product.findById(req.params.id);
   const categories = await Category.find({deleted: false});
   res.render('admin/pages/products/edit',{
+    currentPage: 'products',
     product: product,
     categories: categories,
   });
-})
+});
 
 router.patch('/edit/:id',
   upload.single('image'),
@@ -86,5 +87,21 @@ router.patch('/edit/:id',
     await Product.findByIdAndUpdate(req.params.id,req.body);
     res.redirect('/admin/products');
   }
-)
+);
+
+router.delete('/delete/:id', async(req,res)=>{
+  const id = req.params.id;
+
+  // await Product.deleteOne({ _id: id });
+  await Product.updateOne(
+    { _id: id },
+    {
+      deleted: true,
+    }
+  );
+
+  // req.flash("success", `Đã xóa thành công sản phẩm!`);
+
+  res.redirect("back");
+});
 module.exports = router;

@@ -102,7 +102,24 @@
 }
 
 
-/*my-css*/
+/*common css*/
+header .cart-container{
+  position: relative;
+}
+header .cart-container .cart-notification{
+  display: inline-block;
+  position: absolute;
+  top: 5px;
+  right: 20px;
+  background-color: #f70f0f;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  border: 1px solid gray;
+  justify-self: center;
+  align-self: center;
+  color:beige;
+}
 .pagination {
   display: flex;
   justify-content: center;
@@ -137,3 +154,4 @@
   font-weight: 400;
   color: rgba(255, 0, 0, 0.76);
 }
+

@@ -2,42 +2,26 @@ const { Product } = require('../models/product')
 const { Category } = require('../models/category')
 const express = require('express');
 const router = express.Router();
-const mongoose = require('mongoose');
-// const multer = require('multer');
 const searchHelper = require('../helpers/search');
-// const FILE_TYPE_MAP = {
-//   'image/png': 'png',
-//   'image/jpeg': 'jpeg',
-//   'image/jpg': 'jpg'
-// }
-
-// const storage = multer.diskStorage({
-//   destination: function (req, file, cb) {
-//     const isValid = FILE_TYPE_MAP[file.mimetype];
-//     let uploadError = new Error('invalid image type');
-
-//     if (isValid) {
-//       uploadError = null
-//     }
-//     cb(uploadError, 'public/uploads')
-//   },
-//   filename: function (req, file, cb) {
-
-//     const fileName = file.originalname.split(' ').join('-');
-//     const extension = FILE_TYPE_MAP[file.mimetype];
-//     cb(null, `${fileName}-${Date.now()}.${extension}`)
-//   }
-// })
-
-// const uploadOptions = multer({ storage: storage })
 
 router.get('/', async (req, res) => {
+  const objectSearch = searchHelper(req.query);
 
   const find = {
     deleted: false,
     status: 'active',
   }
-  const objectSearch = searchHelper(req.query);
+  let category ={
+    name: 'Tất cả sản phẩm',
+  };
+  if(req.query.category){
+    category = await Category.findOne({
+      uniqueName: req.query.category,
+    });
+    if(category){
+      find.category = category._id;
+    }
+  }
   if (objectSearch.regex) {
     find.name = objectSearch.regex;
   }
@@ -53,6 +37,7 @@ router.get('/', async (req, res) => {
     pagination: pagination,
     products: products,
     keywork: objectSearch.keywork,
+    category: category.name,
   });
 })
 router.get('/detail/:id', async (req, res) =>{
