@@ -3,11 +3,12 @@ extends ../../layouts/login_register.pug
 block main
   .container-fluid.d-flex.flex-column.bg-info
     section.container-lg.d-flex.flex-column.my-3.rounded
-      // #Login
       .row.py-3
         .col-7
           img.img-fluid.rounded(src='../asset/images/main-ads.jpg' alt='advertisement')
         form(class = "col-4 bg-white d-flex flex-column p-3 rounded" method = "POST" action = "register")
+          if message
+            div.alert.alert-primary(role='alert')= message
           span.fs-4.fw-bold.mb-3 Đăng ký
           input#login-input-username.form-control.mb-3(type='text' name='username' placeholder='Tên đăng nhập')
           input#login-input-email.form-control.mb-3(type='text' name='email' placeholder='Email')

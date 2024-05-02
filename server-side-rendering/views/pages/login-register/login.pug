@@ -8,6 +8,8 @@ block main
         .col-7
           img.img-fluid.rounded(src='../asset/images/main-ads.jpg' alt='advertisement')
         form(class = "col-4 bg-white d-flex flex-column p-3 rounded" method = "POST" action = "login")
+          if message
+            div.alert.alert-primary(role='alert')= message
           span.fs-4.fw-bold.mb-3 Đăng nhập
           input#login-input-username.form-control.mb-3(type='text' name='username' placeholder='Tên đăng nhập')
           input#login-input-password.form-control.mb-2(type='password' name='password' placeholder='Mật khẩu')

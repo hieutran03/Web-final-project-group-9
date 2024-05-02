@@ -1,0 +1,55 @@
+extends ../../layouts/login_register.pug
+
+block main
+  .container-fluid.d-flex.flex-column.bg-info
+    section.container-lg.d-flex.flex-column.my-3.rounded
+      // #VerifyOTPRegister
+      .row.py-3
+        .col-7
+          img.img-fluid.rounded(src='../asset/images/main-ads.jpg' alt='advertisement')
+        form#verify-form.col-4.bg-white.d-flex.flex-column.p-3.rounded(method='POST' action='/users/verify')
+          if message
+            // Display message here
+            div.alert.alert-primary(role='alert')= message
+          span.fs-4.fw-bold.mb-3 Xác thực OTP Đăng ký
+          //- Hidden input field to store userId
+          input(type='hidden' name='userId' value=userId)
+          input#otp-input-code.form-control.mb-3(type='text' name='otp' placeholder='Mã OTP')
+          button.btn.btn-info.d-flex.mb-3.p-0(type='submit')
+            .fs-6.text-decoration-none.text-dark.w-100.p-2 Xác thực
+          .d-flex.flex-row.align-items-center.justify-content-evenly.py-2.border.rounded
+            span Đã có tài khoản?
+            a(href='/users/login') Đăng nhập
+        .col-1
+
+      //- JavaScript để xử lý kết quả POST và chuyển hướng
+      script.
+        document.addEventListener('DOMContentLoaded', function() {
+          document.getElementById('verify-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Ngăn chặn hành động mặc định của form
+            
+            // Lấy dữ liệu từ form
+            const formData = new URLSearchParams(new FormData(this));
+            
+            // Gửi yêu cầu POST đến /users/verify
+            fetch('/users/verify', {
+              method: 'POST',
+              body: formData,
+              headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+              }
+            })
+            .then(response => response.json())
+            .then(data => {
+              if (data.status === 'VERIFIED') {
+                // Nếu status là VERIFIED, chuyển hướng đến trang /users/login
+                window.location.href = '/users/login';
+              } else {
+                alert(data.message);
+              }
+            })
+            .catch(error => {
+              console.error('Error:', error);
+            });
+          });
+        });

@@ -5,6 +5,16 @@ const bcrypt = require('bcryptjs');
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const { getAuth } = require('../middlewares/auth');
+const nodemailer = require('nodemailer');
+const UserOTPVerification = require('../models/UserOTPVerification');
+
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+      user:'thisismytrashfortest1@gmail.com',
+      pass:'rkru fsbn aapi poyz'
+  }
+})
 
 router.get('/login',getAuth, async (req, res) => {
   if(req.user){
@@ -18,23 +28,29 @@ router.post('/login', async (req, res) => {
   const secret = process.env.secret;
 
   if (!user) {
-    return res.redirect('/users/login');
+    return res.render('pages/login-register/login', { message: 'Username không tồn tại!' });
   }
 
   if (user && bcrypt.compareSync(req.body.password, user.passHash)) {
-    const token = jwt.sign(
-      {
-        userId: user._id,
-        //isAdmin: user.isAdmin,
-      },
-      secret,
-      { expiresIn: '1d' }
-    )
-
-    res.cookie("token", token, {maxAge: 24*3600*1000});
-    res.redirect('/');
+    if (user.verified==true){
+      const token = jwt.sign(
+        {
+          userId: user._id,
+          //isAdmin: user.isAdmin,
+        },
+        secret,
+        { expiresIn: '1d' }
+      )
+  
+      res.cookie("token", token, {maxAge: 24*3600*1000});
+      res.redirect('/');
+    } else {
+      resendOTP(user._id,user.email);
+      return res.render('pages/login-register/verify', { pageTitle: 'Verify', userId: user._id, message: `Kiểm tra OTP tại ${user.email}`});
+    }
+    
   } else {
-    res.redirect('/users/login');
+    return res.render('pages/login-register/login', { message: 'Sai mật khẩu!' });
   }
 
 })
@@ -50,21 +66,32 @@ router.get('/register', getAuth, async (req, res) => {
 });
 
 router.post('/register', async (req, res) => {
-  const emailExist = await User.findOne({ email: req.body.email });
-  const usernameExist = await User.findOne({ username: req.body.username });
-  if(emailExist || usernameExist) return res.redirect('/users/register');
-  let user = new User({
-    username: req.body.username,
-    email: req.body.email,
-    passHash: bcrypt.hashSync(req.body.password, 10),
-    address: req.body.address,
-    //isAdmin: req.body.isAdmin,
-  })
-  user = await user.save();
-  if (!user)
-    return res.redirect('/users/register');
+  const emailExist = await User.findOne({ email: req.body.email.trim() });
+  const usernameExist = await User.findOne({ username: req.body.username.trim() });
+  if(emailExist) {
+    return res.render('pages/login-register/register', { message: 'Email đã được đăng ký!' });
+  }
 
-  res.redirect('/users/login');
+  if (usernameExist) {
+    return res.render('pages/login-register/register', { message: 'Username đã được đăng ký!' });
+  }
+
+  let isAdmin = req.body.isAdmin !== undefined ? req.body.isAdmin : false;
+  let user = new User({
+    username: req.body.username.trim(),
+    email: req.body.email.trim(),
+    passHash: bcrypt.hashSync(req.body.password, 10),
+    address: req.body.address.trim(),
+    isAdmin: isAdmin,
+    verified: false,
+  })
+  let userId = "";
+  await user.save().then((result) => {
+    userId = result._id;
+    sendOTPVerificationEmail(result);
+  });
+
+  res.render('pages/login-register/verify', { pageTitle: 'Verify', userId: user._id, message: `Kiểm tra OTP tại ${user.email}`});
 })
 router.get('/', async (req, res) => {
   const userList = await User.find().select('-passHash');
@@ -129,5 +156,96 @@ router.get('/get/count', async (req, res) => {
     userCount: userCount
   });
 })
+
+router.post('/verify', async (req, res) => {
+  try{
+    let userId = req.body.userId;
+    let otp = req.body.otp;
+    if (!userId || !otp) {
+      throw Error("Empty otp details are not allowed!");
+    } else {
+      const UserOTPVerificationRecords = await UserOTPVerification.find({
+        userId,
+      });
+      if (UserOTPVerificationRecords <= 0) {
+        throw new Error (
+          "Account record doesn't exist or has been verified already!"
+        );
+      } else {
+        const {expireAt} = UserOTPVerificationRecords[0];
+        const hashedOTP = UserOTPVerificationRecords[0].otp;
+        if (expireAt < Date.now()){
+          await UserOTPVerification.deleteMany({userId});
+          throw new Error("Code has expired. Please request again!");
+        }else{
+          const validOTP = await bcrypt.compare(otp, hashedOTP);
+          if (!validOTP){
+            throw new Error("Invalid code passed!");
+          }else {
+            await User.updateOne({ _id: userId}, { verified: true});
+            await UserOTPVerification.deleteMany({userId});
+            res.json({
+              status:"VERIFIED",
+              message: "User email verified successfully.",
+            })
+          }
+        }
+      }
+    }
+  }catch (error){
+    res.json({
+      status: "FAILED",
+      message: error.message,
+    })
+  }
+})
+
+
+const resendOTP = async ({userId, email})=>{
+  try {
+    if (!userId || !email) {
+      throw Error("Empty user details are not allowed!");
+    } else {
+      await UserOTPVerification.deleteMany({userId});
+      sendOTPVerificationEmail({_id: userId, email: email});
+    }
+
+  } catch (error) {
+    res.json({
+      status:"FAILED",
+      message: error.message
+    })
+  }
+}
+
+const sendOTPVerificationEmail = async ({_id, email}) => {
+  try {
+    const otp = `${Math.floor(10000000 + Math.random()*90000000)}`;
+    const mailOptions = {
+      from: "thisismytrashfortest1@gmail.com",
+      to: email,
+      subject: "Verify Your Email",
+      html: `<p>Enter <b>${otp}</b> in the app to verify your email address and complete the signup process. This code <b>expires in 5 minutes</b>.`,
+
+    };
+    const saltRounds = 10;
+    const hashedOTP = await bcrypt.hash(otp, saltRounds);
+    const newOTPVerification = new UserOTPVerification({
+      userId: _id,
+      otp: hashedOTP,
+      createdAt: Date.now(),
+      expireAt: Date.now() + 300000,
+    });
+
+    await newOTPVerification.save();
+    await transporter.sendMail(mailOptions);
+
+  } catch (error){
+    res.json({
+      status:"FAILED",
+      message: "Something error occur!",
+    })
+  }
+};
 
 module.exports = router;
