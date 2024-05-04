@@ -4,7 +4,7 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
-const { getAuth } = require('../middlewares/auth');
+const { getAuth, requireAuth } = require('../middlewares/auth');
 const nodemailer = require('nodemailer');
 const UserOTPVerification = require('../models/UserOTPVerification');
 
@@ -185,6 +185,30 @@ router.post('/resetpassword', async (req, res) => {
   }
 });
 
+router.get('/detail', getAuth, async (req,res) => {
+  if (!req.user) {
+    return res.render('pages/login-register/login', { message: 'Bạn đã đăng nhập đâu mà xem thông tin ?' });
+  } else {
+    return res.render('pages/home/detail', { user: req.user })
+  }
+})
+
+router.post('/detail/update', requireAuth, async (req, res) => {
+  const newUsername = req.body.username;
+  const newAddress = req.body.address;
+  const userId = req.user._id;
+  if (!newUsername || !newAddress){
+    return res.json({ message: 'Empty required field!'});
+  }
+
+  const existingUser = await User.findOne({ username: newUsername, _id: { $ne: userId } });
+  if (existingUser) {
+    return res.json({ message: 'Username already exists' });
+  }
+
+  await User.updateOne({ _id: userId }, { username: newUsername, address: newAddress })
+  return res.json({ message: 'Successfully changed!' });
+});
 
 router.get('/:id', async (req, res) => {
   if (!mongoose.isValidObjectId(req.params.id)) {

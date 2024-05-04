@@ -1,0 +1,70 @@
+extends ../../layouts/default.pug
+
+block main
+  .container
+    h1 User Detail
+    form(id='user-detail-form' method='POST' action='/users/detail/update')
+      .form-group
+        label(for='username') Username:
+        input#username.form-control(type='text' name='username' value=user.username required disabled)
+      .form-group
+        label(for='email') Email:
+        input#email.form-control(type='email' name='email' value=user.email required disabled)
+      .form-group
+        label(for='verified') Verified:
+        input#verified.form-control(type='text' name='verified' value=user.verified ? 'True' : 'False' required disabled)
+      .form-group
+        label(for='isAdmin') Is Admin:
+        input#isAdmin.form-control(type='text' name='isAdmin' value=user.isAdmin ? 'True' : 'False' required disabled)
+      .form-group
+        label(for='address') Address:
+        input#address.form-control(type='text' name='address' value=user.address required disabled)
+      button#edit-btn.btn.btn-primary(type='button') Edit
+
+  script.
+    const editBtn = document.getElementById('edit-btn');
+    const formInputs = document.querySelectorAll('#user-detail-form input:not(#isAdmin):not(#verified):not(#email)');
+
+    editBtn.addEventListener('click', function() {
+      editBtn.textContent = 'Save';
+      editBtn.classList.remove('btn-primary');
+      editBtn.classList.add('btn-success');
+      
+      formInputs.forEach(input => {
+        input.removeAttribute('disabled');
+      });
+
+      editBtn.addEventListener('click', function() {
+        document.getElementById('user-detail-form').submit();
+      });
+    });
+
+    // Function to show alert with message
+    function showAlert(message) {
+      alert(message);
+    }
+
+    // Add event listener to the form submission
+    document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('user-detail-form').addEventListener('submit', function(event) {
+      event.preventDefault(); // Prevent default form submission
+
+      // Fetch the form data
+      const formData = new FormData(this);
+
+      // Send a POST request to the server
+      fetch('/users/detail/update', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.json())
+      .then(data => {
+        // Show the response message
+        alert(data.message);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred. Please try again.');
+      });
+    });
+    });

@@ -23,9 +23,9 @@ header.container-fluid.py-2.bg-info
               span.col-8.fw-bold #{user.username}
           ul.dropdown-menu(aria-labelledby='dropdownUser')
             li
-              a.dropdown-item(href='#') Thông tin cá nhân
+              a.dropdown-item(href='/users/detail') Thông tin cá nhân
             li 
-              a.dropdown-item(href='/users/lost_password') Đổi mật khẩu
+              a.dropdown-item(href='/users/resetpassword') Đổi mật khẩu
             li
               btn#logout_btn.dropdown-item Đăng xuất
         else
