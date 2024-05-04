@@ -33,7 +33,8 @@
                         </div>
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownUser">
-                        <li><a class="dropdown-item" href="#">Thông tin cá nhân</a></li>
+                        <li><a class="dropdown-item" href="info.html">Thông tin cá nhân</a></li>
+                        <li><a class="dropdown-item" href="order.html">Quản lí đơn hàng</a></li>
                         <li><a class="dropdown-item" href="login.html">Đăng xuất</a></li>
                     </ul>
                 </div>
@@ -217,12 +218,59 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        cmt part
+                    <div class="border rounded px-3 my-3"> <!-- #usercmt grid -->
+                        <div class="row p-2 my-1"> <!-- #user form -->
+                            <div class="col-1 d-flex flex-column justify-content-start align-items-center px-0">
+                                <div>
+                                    <img class="img-fluid" src="../asset/images/ava.png" alt="client avatar">
+                                </div>
+                            </div>
+                            <div class="col-11 d-flex flex-column">
+                                <span class="fs-6 fw-bold m-1">Username123</span>
+                                <textarea class="form-control" id="user-comment" rows="3" style="resize: none;"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-column bg-light border rounded px-3">
+                        <div class="row p-2 my-1"> <!-- #cmt form -->
+                            <div class="col-1 d-flex flex-column justify-content-start align-items-center px-0">
+                                <div>
+                                    <img class="img-fluid" src="../asset/images/ava.png" alt="client avatar">
+                                </div>
+                            </div>
+                            <div class="col-11 d-flex flex-column">
+                                <span class="fs-6 fw-bold m-1">Username55</span>
+                                <textarea class="form-control" id="user-comment" rows="1" style="resize: none;">comment content</textarea>
+                            </div>
+                        </div>
+                        <div class="border-top m-2"></div>
+                        <div class="row p-2 my-1"> <!-- #cmt form -->
+                            <div class="col-1 d-flex flex-column justify-content-start align-items-center px-0">
+                                <div>
+                                    <img class="img-fluid" src="../asset/images/ava.png" alt="client avatar">
+                                </div>
+                            </div>
+                            <div class="col-11 d-flex flex-column">
+                                <span class="fs-6 fw-bold m-1">Username12</span>
+                                <textarea class="form-control" id="user-comment" rows="1" style="resize: none;">product review</textarea>
+                            </div>
+                        </div>
+                        <div class="border-top m-2"></div>
+                        <div class="row p-2 my-1"> <!-- #cmt form -->
+                            <div class="col-1 d-flex flex-column justify-content-start align-items-center px-0">
+                                <div>
+                                    <img class="img-fluid" src="../asset/images/ava.png" alt="client avatar">
+                                </div>
+                            </div>
+                            <div class="col-11 d-flex flex-column">
+                                <span class="fs-6 fw-bold m-1">Username34</span>
+                                <textarea class="form-control" id="user-comment" rows="1" style="resize: none;">personal opinion</textarea>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="col-5 d-flex flex-column gap-2 p-3">
-                    test
+                    <span class="fs-5 fw-bold">Sản phẩm đã xem</span>
                 </div>
             </div>
         </section>
