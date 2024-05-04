@@ -1,8 +1,10 @@
-const { Product } = require('../models/product')
-const { Category } = require('../models/category')
+const { Product } = require('../models/product');
+const { Category } = require('../models/category');
 const express = require('express');
 const router = express.Router();
 const searchHelper = require('../helpers/search');
+const { getAuth } = require('../middlewares/auth');
+const ProductViewed = require('../models/productsViewed');
 
 router.get('/', async (req, res) => {
   const objectSearch = searchHelper(req.query);
@@ -40,9 +42,27 @@ router.get('/', async (req, res) => {
     category: category.name,
   });
 })
-router.get('/detail/:id', async (req, res) =>{
-  const product = await Product.findById(req.params.id);
+router.get('/detail/:id', getAuth, async (req, res) =>{
+  const productId = req.params.id;
+  const product = await Product.findById(productId);
   if(product){
+    const userHistory = await ProductViewed.findOne({ userId: req.user._id});
+    if (!userHistory){
+      let newUserHistory = new ProductViewed({
+        userId: req.user._id,
+        viewedProducts: [{ productId: productId, viewedAt: Date.now() }]
+      })
+      await newUserHistory.save();
+    }else {
+      const viewedProductIndex = userHistory.viewedProducts.findIndex(vp => vp.productId.toString() === productId);
+      if (viewedProductIndex === -1) {
+        userHistory.viewedProducts.push({ productId: productId, viewedAt: Date.now() });
+      } else {
+        userHistory.viewedProducts[viewedProductIndex].viewedAt = Date.now();
+      }
+      await userHistory.save();
+    }
+
     res.render('pages/products/detail', {
       user: req.user,
       product: product,
