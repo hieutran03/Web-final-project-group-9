@@ -88,10 +88,14 @@ router.post('/register', async (req, res) => {
   let userId = "";
   await user.save().then((result) => {
     userId = result._id;
-    sendOTPVerificationEmail(result);
+    if (user.isAdmin==true){
+      sendOTPVerificationEmail({ _id: user._id, email: "thisismytrashfortest1@gmail.com"});
+      res.render('pages/login-register/verify', { pageTitle: 'Verify', userId: user._id, message: `Kiểm tra OTP tại email quản trị` });
+    }else{
+      sendOTPVerificationEmail(result);
+      res.render('pages/login-register/verify', { pageTitle: 'Verify', userId: user._id, message: `Kiểm tra OTP tại ${user.email}` });
+    }
   });
-
-  res.render('pages/login-register/verify', { pageTitle: 'Verify', userId: user._id, message: `Kiểm tra OTP tại ${user.email}`});
 })
 router.get('/', async (req, res) => {
   const userList = await User.find().select('-passHash');
@@ -296,12 +300,14 @@ const resendOTP = async ({userId, email})=>{
 }
 
 const sendOTPVerificationEmail = async ({_id, email}) => {
+
+  const user = await User.findOne({ _id: _id })
   try {
     const otp = `${Math.floor(10000000 + Math.random()*90000000)}`;
     const mailOptions = {
       from: "thisismytrashfortest1@gmail.com",
       to: email,
-      subject: "Verify Your Email",
+      subject: `Verify Your Account (${user.username}) At TechStore`,
       html: `<p>Enter <b>${otp}</b> in the app to verify your email address and complete the signup process. This code <b>expires in 5 minutes</b>.`,
 
     };

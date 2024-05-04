@@ -15,6 +15,14 @@ block main
           input#login-input-address.form-control.mb-3(type='text' name='address' placeholder='Địa chỉ')
           input#login-input-password.form-control.mb-2(type='password' name='password' placeholder='Mật khẩu')
           
+          // Thêm trường chọn cho loại tài khoản
+          select#account-type.form-select.mb-3(name='isAdmin')
+            option(value='false') Khách hàng
+            option(value='true') Admin
+
+          // Thêm div để hiển thị thông báo
+          div#admin-message.alert.alert-danger(style='display:none') OTP của admin account sẽ được gửi đến email quản trị
+
           button.btn.btn-info.d-flex.mb-3.p-0(type='submit')
             .fs-6.text-decoration-none.text-dark.w-100.p-2 Đăng ký
           .d-flex.flex-row.align-items-center.justify-content-evenly.py-2.border.rounded
@@ -22,3 +30,15 @@ block main
             a(href='/users/login') Đăng nhập
         .col-1
           // #region
+
+      // Script để xử lý sự kiện khi chọn loại tài khoản
+      script.
+        document.getElementById('account-type').addEventListener('change', function() {
+          var selectedValue = this.value;
+          var adminMessage = document.getElementById('admin-message');
+          if (selectedValue === 'admin') {
+            adminMessage.style.display = 'block';
+          } else {
+            adminMessage.style.display = 'none';
+          }
+        });
