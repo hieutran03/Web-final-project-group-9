@@ -102,6 +102,86 @@ router.get('/', async (req, res) => {
   res.send(userList);
 })
 
+router.get('/lost_password', getAuth, async (req, res) => {
+  if (req.user) {
+    return res.redirect('/');
+  }
+  return res.render('pages/login-register/lost_password', { pageTitle: 'Lost password' });
+});
+
+router.post('/lost_password', async (req, res) => {
+  try{
+    let email = req.body.email;
+    if (!email) {
+      throw Error("Empty required field!");
+    } else {
+      const user = await User.findOne({ email: email });
+      if (!user) {
+        throw new Error(
+          "Don't find user with that email!"
+        );
+      } else {
+        await sendLinkLostPassword({_id: user._id, email: email, });
+        res.json({
+          status: "success",
+          message: "Check your email!",
+        });
+      }
+    }
+  } catch (error) {
+    res.json({
+      status: "FAILED",
+      message: error.message,
+    });
+  }
+  
+});
+
+router.get('/resetpassword', getAuth, async (req, res) => {
+  if (req.user) {
+    return res.render('pages/login-register/resetpassword', { pageTitle: 'Reset password', userId: req.user._id });
+  }else{
+    const userId = req.query.userid;
+    if (userId){
+      return res.render('pages/login-register/resetpassword', { pageTitle: 'Lost password', userId: userId });
+    }else {
+      return res.render('pages/login-register/resetpassword', { pageTitle: 'Lost password', message: "You shouldn't go there. Get out!"});
+    }
+  }
+});
+
+router.post('/resetpassword', async (req, res) => {
+  let userId = req.body.userId;
+  let newPassword = req.body.newPassword;
+  if (!userId||!newPassword){
+    res.json({
+      status: "FAILED",
+      message: "Check again your parameter!",
+    });
+  }
+  await User.updateOne({ _id: userId }, { password: newPassword });
+
+  try {
+    let userId = req.body.userId;
+    let newPassword = req.body.newPassword;
+    if (!userId || !newPassword) {
+      throw Error("Empty required field!");
+    } else {
+      await User.updateOne({ _id: userId }, { passHash: bcrypt.hashSync(newPassword, 10) });
+      res.json({
+        status: "success",
+        message: "Reset pass successfully. Please login again with your new password!",
+      });
+    }
+  } catch (error) {
+    res.json({
+      status: "FAILED",
+      message: error.message,
+    });
+  }
+});
+
+
 router.get('/:id', async (req, res) => {
   if (!mongoose.isValidObjectId(req.params.id)) {
     return res.status(400).send('Invalid user ID')
@@ -207,14 +287,11 @@ const resendOTP = async ({userId, email})=>{
       throw Error("Empty user details are not allowed!");
     } else {
       await UserOTPVerification.deleteMany({userId});
-      sendOTPVerificationEmail({_id: userId, email: email});
+      await sendOTPVerificationEmail({_id: userId, email: email});
     }
 
   } catch (error) {
-    res.json({
-      status:"FAILED",
-      message: error.message
-    })
+    return
   }
 }
 
@@ -247,5 +324,26 @@ const sendOTPVerificationEmail = async ({_id, email}) => {
     })
   }
 };
+
+const sendLinkLostPassword = async ({ _id, email }) => {
+  try {
+    const otp = `${Math.floor(10000000 + Math.random() * 90000000)}`;
+    const mailOptions = {
+      from: "thisismytrashfortest1@gmail.com",
+      to: email,
+      subject: "TechStore Lost Password",
+      html: `Click this link to reset your password account at <b>TechStore web</b>. <a href="http://localhost:3000/users/resetpassword?userid=${_id}">Link here</a>.`,
+
+    };
+    await transporter.sendMail(mailOptions);
+
+  } catch (error) {
+    res.json({
+      status: "FAILED",
+      message: "Something error occur!",
+    })
+  }
+};
+
 
 module.exports = router;
