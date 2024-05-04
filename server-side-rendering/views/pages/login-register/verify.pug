@@ -42,7 +42,7 @@ block main
             .then(response => response.json())
             .then(data => {
               if (data.status === 'VERIFIED') {
-                // Nếu status là VERIFIED, chuyển hướng đến trang /users/login
+                alert(data.message);
                 window.location.href = '/users/login';
               } else {
                 alert(data.message);
