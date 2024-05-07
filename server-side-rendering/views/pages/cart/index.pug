@@ -13,9 +13,9 @@ block main
           .col-2.d-flex.flex-column.py-2.align-items-end.justify-content-between
             span.fs-5.text-primary.fw-bold #{item.products.newPrice}
             .btn-group.input-group(role='group' aria-label='Basic example')
-              button.btn.btn-light.border(type='button' onclick='decQuantity()') -
-              input#product-quantity.form-control.text-center(type='text' value=item.quantity aria-label='Quantity')
-              button.btn.btn-light.border(type='button' onclick='incQuantity()') +
+              button.btn.btn-light.border(type='button' onclick=`dec_Quantity('${item.products.id}')`) -
+              input.form-control.text-center(id=`product-quantity-${item.products.id}`, type='text', value=item.quantity, aria-label='Quantity')
+              button.btn.btn-light.border(type='button' onclick=`inc_Quantity('${item.products.id}')`) +
         form(action = `cart/delete/${item.products.id}?_method=delete`, method="post").m-2.d-flex.flex-row.justify-content-end 
           button.btn.btn-danger(type='submit') Xóa
       
