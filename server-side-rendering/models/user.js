@@ -42,16 +42,26 @@ const userSchema = mongoose.Schema({
     required: true,
     default: 'Viet Nam'
   },
-},{
+}, {
   toObject: { virtuals: true },
 })
 
-userSchema.pre('find', function() {
+userSchema.pre('find', function () {
   this.populate('cart.products');
 });
-userSchema.virtual('cartTotal').get(function() {
+userSchema.pre('save', function () {
+  this.populate('cart.products');
+});
+userSchema.virtual('cartTotal').get(function () {
   return this.cart.reduce((total, item) => {
     return total + item.quantity;
+  }, 0);
+})
+userSchema.virtual('totalPrice').get(function () {
+  return this.cart.reduce((reduce, item) => {
+    return (
+      reduce + ((item.products.price * (100 - item.products.discountPercentage)) / 100) * item.quantity
+    );
   }, 0);
 })
 exports.User = mongoose.model('User', userSchema);

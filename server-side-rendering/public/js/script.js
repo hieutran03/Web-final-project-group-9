@@ -69,8 +69,9 @@ async function updateQuantity(productId, newQuantity) {
     if (!response.ok) {
       throw new Error("Failed to update quantity");
     }
-    const user = await response.json()
-    console.log(user);
+    const {totalPrice, cartTotal} = await response.json()
+    document.querySelector("#total-price").innerText =  Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(totalPrice);
+    document.querySelector("#cart-total").innerText = cartTotal;
   } catch (error) {
     console.error("Error updating quantity:", error);
   }

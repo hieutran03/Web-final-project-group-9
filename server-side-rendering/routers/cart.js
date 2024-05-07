@@ -4,14 +4,7 @@ const router = express.Router();
 router.get("/", async (req, res) => {
   const user = await User.findById(req.user._id).populate("cart.products");
   const items = user.cart;
-  const totalPrice = items.reduce((reduce, item) => {
-    return (
-      reduce +
-      ((item.products.price * (100 - item.products.discountPercentage)) / 100) *
-        item.quantity
-    );
-  }, 0);
-  console.log(user);
+  const totalPrice = user.totalPrice;
   res.render("pages/cart/index", {
     items: items,
     user: user,
@@ -51,7 +44,10 @@ router.post("/update/:productId", async (req, res) => {
   }
 
   const updatedUser = await user.save();
-  res.status(200).json(updatedUser);
+  res.status(200).json({
+    totalPrice: updatedUser.totalPrice,
+    cartTotal: updatedUser.cartTotal,
+  });
 });
 router.delete("/delete/:productId", async (req, res) => {
   const productId = req.params.productId;

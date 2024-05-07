@@ -9,7 +9,7 @@ const productSchema = mongoose.Schema({
   description: {
     type: String,
     default: "",
-    required: true,
+    // required: true,
   },
 
   image: {
@@ -63,6 +63,40 @@ const productSchema = mongoose.Schema({
     type: String,
     default: 'active',
   },
+  comments: [
+    {
+      user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+      },
+      content: {
+        type: String,
+        required: true
+      },
+      childComments: [
+        {
+          user: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User',
+            required: true
+          },
+          content: {
+            type: String,
+            required: true
+          },
+          date: {
+            type: Date,
+            default: Date.now
+          }
+        }
+      ],
+      date: {
+        type: Date,
+        default: Date.now
+      }
+    }
+  ],
   // rating: {
   //   type: Number,
   //   default: 0,
@@ -74,6 +108,7 @@ const productSchema = mongoose.Schema({
   //   default: 0,
   // },
 })
+
 productSchema.virtual('oldPrice').get(function(){
   return Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(this.price)
 });

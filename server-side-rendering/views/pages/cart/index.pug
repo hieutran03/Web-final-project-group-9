@@ -22,7 +22,7 @@ block main
       .border-top.m-2
       .d-flex.flex-row.row.m-2
         span.col Tổng tiền:
-        span.col.fs-5.text-primary.fw-bold.d-flex.flex-row.justify-content-end #{Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(totalPrice)}
+        span#total-price.col.fs-5.text-primary.fw-bold.d-flex.flex-row.justify-content-end #{Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(totalPrice)}
       .border-top.m-2
       button.btn.btn-info.d-flex.m-2.p-0(type='button')
         a.fs-6.text-decoration-none.text-dark.w-100.p-2(href='') Đặt hàng

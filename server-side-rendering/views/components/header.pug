@@ -10,7 +10,7 @@ header.container-fluid.py-2.bg-info
     .cart-container.col-1.d-flex.flex-row.align-items-center.justify-content-center
       a.btn.btn-info.w-75(href='/cart')
         if(user && user.cartTotal > 0)
-          span.cart-notification #{user.cartTotal}
+          span#cart-total.cart-notification #{user.cartTotal}
         else
           span.cart-notification 0
         img.img-fluid.w-100(src='/asset/images/cart.png' alt='add-to-cart')

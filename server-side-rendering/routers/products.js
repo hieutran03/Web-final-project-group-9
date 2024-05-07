@@ -3,7 +3,7 @@ const { Category } = require('../models/category');
 const express = require('express');
 const router = express.Router();
 const searchHelper = require('../helpers/search');
-const { getAuth } = require('../middlewares/auth');
+const { getAuth, requireAuth } = require('../middlewares/auth');
 const ProductViewed = require('../models/productsViewed');
 
 router.get('/', async (req, res) => {
@@ -44,7 +44,7 @@ router.get('/', async (req, res) => {
 })
 router.get('/detail/:id', getAuth, async (req, res) =>{
   const productId = req.params.id;
-  const product = await Product.findById(productId);
+  const product = await Product.findById(productId).populate(['comments.user', 'comments.childComments.user']);
   if(product && req.user){
     const userHistory = await ProductViewed.findOne({ userId: req.user._id});
     if (!userHistory){
@@ -62,7 +62,7 @@ router.get('/detail/:id', getAuth, async (req, res) =>{
       }
       await userHistory.save();
     }
-
+    console.log(product)
     res.render('pages/products/detail', {
       user: req.user,
       product: product,
@@ -70,7 +70,22 @@ router.get('/detail/:id', getAuth, async (req, res) =>{
   }else{
     res.redirect('/');
   }
-  
+
+});
+router.post('/comment/:id', requireAuth, async (req, res) => {
+  const productId = req.params.id;
+  const product = await Product.findById(productId);
+  if (product) {
+    product.comments.unshift({
+      user: req.user._id,
+      content: req.body.content,
+    });
+    console.log(product);
+    await product.save();
+    res.redirect(`/products/detail/${productId}`);
+  } else {
+    res.redirect('/');
+  }
 });
 // router.get('/:id', async (req, res) => {
 //   if (!mongoose.isValidObjectId(req.params.id)) {
