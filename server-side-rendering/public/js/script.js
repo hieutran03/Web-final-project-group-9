@@ -22,22 +22,6 @@ function decQuantity() {
 }
 
 // tăng giảm sản phẩm ở /cart
-// function dec_Quantity(productId) {
-//   var quantityInput = document.getElementById("product-quantity-" + productId);
-//   var currentQuantity = parseInt(quantityInput.value);
-
-//   if (currentQuantity > 1) {
-//     quantityInput.value = currentQuantity - 1;
-//   }
-// }
-
-// function inc_Quantity(productId) {
-//   var quantityInput = document.getElementById("product-quantity-" + productId);
-//   var currentQuantity = parseInt(quantityInput.value);
-
-//   quantityInput.value = currentQuantity + 1;
-//   console.log(productId);
-// }
 function dec_Quantity(productId) {
   var quantityInput = document.getElementById("product-quantity-" + productId);
   var currentQuantity = parseInt(quantityInput.value);
@@ -53,7 +37,7 @@ function inc_Quantity(productId) {
   var currentQuantity = parseInt(quantityInput.value);
 
   quantityInput.value = currentQuantity + 1;
-  updateQuantity(productId, currentQuantity + 1); // Gọi hàm cập nhật số lượng
+  updateQuantity(productId, currentQuantity + 1);
 }
 
 async function updateQuantity(productId, newQuantity) {
@@ -69,8 +53,13 @@ async function updateQuantity(productId, newQuantity) {
     if (!response.ok) {
       throw new Error("Failed to update quantity");
     }
+<<<<<<< HEAD
     const user = await response.json()
     console.log(user);
+=======
+
+    window.location.reload();
+>>>>>>> 8508a0e (warranty-policy.html and update cart.js)
   } catch (error) {
     console.error("Error updating quantity:", error);
   }

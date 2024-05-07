@@ -1,0 +1,155 @@
+doctype html
+head
+  meta(charset='UTF-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+  link(rel='stylesheet' href='../asset/style.css')
+  link(href='https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css' rel='stylesheet' integrity='sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC' crossorigin='anonymous')
+  script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js' integrity='sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz' crossorigin='anonymous')
+  title Tech store - Gi&#x1ECF; h&agrave;ng
+// #header
+header.container-fluid.py-2.bg-info
+  .row.container-fluid.align-items-center.justify-content-center
+    .col-2.d-flex.flex-row.align-items-center.justify-content-center
+      a(href='index.html')
+        img.img-fluid.rounded.w-75(src='../asset/images/TechStore-Logo.png' alt='tech_store_logo')
+    .col-7.d-flex.flex-row.bg-white.rounded.p-1
+      input.form-control.border-0(type='text' placeholder='Tìm kiếm' aria-label='Username')
+      button.btn.btn-info(type='button') Search
+    .col-1.d-flex.flex-row.align-items-center.justify-content-center
+      button.btn.btn-info.w-75(type='button')
+        a(href='cart.html')
+          img.img-fluid.w-100(src='../asset/images/cart.png' alt='add-to-cart')
+    .col-2.d-flex.flex-row.align-items-center.justify-content-center
+      .dropdown.row.d-flex.flex-row.align-items-center.justify-content-between.mx-4
+        button#dropdownUser.btn.btn-info.dropdown-toggle.d-flex.flex-row.align-items-center.justify-content-between(type='button' data-bs-toggle='dropdown')
+          .row.d-flex.flex-row.align-items-center.justify-content-between
+            img.img-fluid.col-4(src='../asset/images/ava.png' alt='user-ava')
+            span.col-8.fw-bold Username
+        ul.dropdown-menu(aria-labelledby='dropdownUser')
+          li
+            a.dropdown-item(href='info.html') Th&ocirc;ng tin c&aacute; nh&acirc;n
+          li
+            a.dropdown-item(href='order.html') Qu&#x1EA3;n l&iacute; &dstrok;&#x1A1;n h&agrave;ng
+          li
+            a.dropdown-item(href='login.html') &Dstrok;&abreve;ng xu&#x1EA5;t
+// #nav
+.topnav.d-flex.bg-dark
+  .dropdown.row.d-flex.flex-row.align-items-center.justify-content-between.mx-4
+    button#dropdownMenu.btn.btn-dark.dropdown-toggle.d-flex.flex-row.align-items-center(type='button' data-bs-toggle='dropdown')
+      .row.d-flex.flex-row.align-items-center.justify-content-between.ms-3
+        img.img-fluid.col-2(src='../asset/images/menu.png' alt='cash')
+        span.col-10.text-white DANH M&#x1EE4;C S&#x1EA2;N PH&#x1EA8;M
+    ul.dropdown-menu.bg-dark(aria-labelledby='dropdownMenu')
+      li
+        a.dropdown-item(href='collection.html') Laptop
+      li
+        a.dropdown-item(href='collection.html') PC
+      li
+        a.dropdown-item(href='collection.html') Gaming gear
+      li
+        a.dropdown-item(href='collection.html') Storage
+      li
+        a.dropdown-item(href='collection.html') Thi&#x1EBF;t b&#x1ECB; ngo&#x1EA1;i vi
+  a.row.d-flex.flex-row.align-items-center.justify-content-between(href='')
+    img.img-fluid.col-2(src='../asset/images/cash.png' alt='cash')
+    span.col-10 H&#x1B0;&#x1EDB;ng d&#x1EAB;n thanh to&aacute;n
+  a.row.d-flex.flex-row.align-items-center.justify-content-between(href='')
+    img.img-fluid.col-2(src='../asset/images/installment.png' alt='cash')
+    span.col-10 H&#x1B0;&#x1EDB;ng d&#x1EAB;n tr&#x1EA3; g&oacute;p
+  a.row.d-flex.flex-row.align-items-center.justify-content-between(href='')
+    img.img-fluid.col-2(src='../asset/images/warranty.png' alt='cash')
+    span.col-10 Ch&iacute;nh s&aacute;ch b&#x1EA3;o h&agrave;nh
+  a.row.d-flex.flex-row.align-items-center.justify-content-between(href='')
+    img.img-fluid.col-2(src='../asset/images/hiring.png' alt='cash')
+    span.col-10 Th&ocirc;ng tin tuy&#x1EC3;n d&#x1EE5;ng
+// #content
+.col-xs-12.col-sm-9(style='padding: 20px 0 0 350px; font-size: 17px;')
+  h3.shop-cs-maintitle Ch&iacute;nh s&aacute;ch b&#x1EA3;o h&agrave;nh t&#x1EA1;i Tech Store
+  .policy-container
+    .policy-special(style='background: #fffcfc; border: 1px solid #ebebeb; border-radius: 5px; padding: 10px 20px; margin: 20px 0 10px;')
+      em.orange(style='color: #f37021;')
+        strong
+          | &Dstrok;&#x1EA7;u ti&ecirc;n, xin ch&acirc;n th&agrave;nh c&#x1EA3;m &#x1A1;n Qu&yacute; kh&aacute;ch &dstrok;&atilde; tin t&#x1B0;&#x1EDF;ng v&agrave; l&#x1EF1;a ch&#x1ECD;n mua s&#x1EAF;m t&#x1EA1;i Tech Store .
+      ul
+        li
+          | V&#x1EDB;i ph&#x1B0;&#x1A1;ng ch&acirc;m &ldquo;Quy&#x1EC1;n l&#x1EE3;i c&#x1EE7;a Kh&aacute;ch h&agrave;ng l&agrave; quan tr&#x1ECD;ng nh&#x1EA5;t&rdquo;, t&#x1EA5;t c&#x1EA3; c&aacute;c s&#x1EA3;n ph&#x1EA9;m mua t&#x1EA1;i H&#x1EC7; th&#x1ED1;ng Tech Store  tr&ecirc;n to&agrave;n qu&#x1ED1;c v&agrave; t&#x1EA1;i website 
+          a(href='/') https://Tech Store .com.vn/
+          |  &dstrok;&#x1EC1;u 
+          strong &dstrok;&#x1B0;&#x1EE3;c &aacute;p d&#x1EE5;ng ch&iacute;nh s&aacute;ch b&#x1EA3;o h&agrave;nh theo &dstrok;&uacute;ng quy &dstrok;&#x1ECB;nh c&#x1EE7;a H&atilde;ng.
+        li
+          | &Dstrok;&#x1EB6;C BI&#x1EC6;T, &dstrok;&#x1ED1;i v&#x1EDB;i s&#x1EA3;n ph&#x1EA9;m l&agrave; M&aacute;y t&iacute;nh x&aacute;ch tay, M&agrave;n h&igrave;nh v&agrave; 1 s&#x1ED1; ph&#x1EE5; ki&#x1EC7;n c&oacute; &dstrok;i&#x1EC7;n kh&aacute;c, Kh&aacute;ch h&agrave;ng &dstrok;&#x1B0;&#x1EE3;c h&#x1B0;&#x1EDF;ng 
+          strong ch&iacute;nh s&aacute;ch ri&ecirc;ng c&#x1EE7;a Tech Store :
+      .policy-title(style='text-align: center; font-weight: bold; color: #e20d0d;') &ldquo;MI&#x1EC4;N PH&Iacute; 1 &Dstrok;&#x1ED4;I 1 N&#x1EBE;U C&Oacute; L&#x1ED6;I PH&#x1EA6;N C&#x1EE8;NG TRONG V&Ograve;NG 30 NG&Agrave;Y &Dstrok;&#x1EA6;U TI&Ecirc;N MUA H&Agrave;NG&rdquo;.
+      p
+        | T&igrave;m hi&#x1EC3;u ch&iacute;nh s&aacute;ch &dstrok;&#x1ED5;i tr&#x1EA3; c&#x1EE5; th&#x1EC3; t&#x1EA1;i &dstrok;&acirc;y:  
+        a(href='/ho-tro/chinh-sach-doi-san-pham') https://Tech Store .com.vn/ho-tro/chinh-sach-doi-san-pham
+    .policy-list
+      h3.shop-cs-maintitle Qu&yacute; kh&aacute;ch vui l&ograve;ng l&#x1B0;u &yacute; 1 s&#x1ED1; n&#x1ED9;i dung sau:
+      ul
+        li
+          | Ch&#x1B0;&#x1A1;ng tr&igrave;nh b&#x1EA3;o h&agrave;nh b&#x1EAF;t &dstrok;&#x1EA7;u c&oacute; hi&#x1EC7;u l&#x1EF1;c t&#x1EEB; th&#x1EDD;i &dstrok;i&#x1EC3;m Tech Store  xu&#x1EA5;t h&oacute;a &dstrok;&#x1A1;n cho Qu&yacute; kh&aacute;ch.
+        li
+          | V&#x1EDB;i m&#x1ED7;i d&ograve;ng s&#x1EA3;n ph&#x1EA9;m kh&aacute;c nhau s&#x1EBD; c&oacute; ch&iacute;nh s&aacute;ch b&#x1EA3;o h&agrave;nh kh&aacute;c nhau t&ugrave;y theo ch&iacute;nh s&aacute;ch c&#x1EE7;a H&atilde;ng/Nh&agrave; cung c&#x1EA5;p.
+        li
+          | &Dstrok;&#x1EC3; t&igrave;m hi&#x1EC3;u th&ocirc;ng tin chi ti&#x1EBF;t v&#x1EC1; ch&iacute;nh s&aacute;ch b&#x1EA3;o h&agrave;nh cho s&#x1EA3;n ph&#x1EA9;m c&#x1EE5; th&#x1EC3;, xin li&ecirc;n h&#x1EC7; b&#x1ED9; ph&#x1EAD;n Ch&abreve;m s&oacute;c Kh&aacute;ch h&agrave;ng c&#x1EE7;a Tech Store : 
+          a.tel-g(href='tel:18006601') 1800 6616
+        li
+          | Tra c&#x1EE9;u t&igrave;nh tr&#x1EA1;ng m&aacute;y g&#x1EED;i b&#x1EA3;o h&agrave;nh b&#x1EA5;t c&#x1EE9; l&uacute;c n&agrave;o qua &dstrok;&#x1B0;&#x1EDD;ng link: 
+          a(href='/kiem-tra-bao-hanh?tab=thong-tin-bao-hanh') https://TechStore.com.vn/kiem-tra-bao-hanh?tab=thong-tin-bao-hanh
+    div
+      h3.shop-cs-maintitle C&aacute;c tr&#x1B0;&#x1EDD;ng h&#x1EE3;p n&#x1EB1;m ngo&agrave;i ch&iacute;nh s&aacute;ch b&#x1EA3;o h&agrave;nh:
+      em
+        strong
+          | Nh&#x1EEF;ng tr&#x1B0;&#x1EDD;ng h&#x1EE3;p d&#x1B0;&#x1EDB;i &dstrok;&acirc;y s&#x1EBD; kh&ocirc;ng n&#x1EB1;m trong ch&iacute;nh s&aacute;ch b&#x1EA3;o h&agrave;nh mi&#x1EC5;n ph&iacute; c&#x1EE7;a Nh&agrave; s&#x1EA3;n xu&#x1EA5;t:
+      ul
+        li
+          | S&#x1EA3;n ph&#x1EA9;m &dstrok;&atilde; b&#x1ECB; thay &dstrok;&#x1ED5;i, s&#x1EED;a ch&#x1EEF;a kh&ocirc;ng thu&#x1ED9;c c&aacute;c Trung T&acirc;m B&#x1EA3;o H&agrave;nh &#x1EE6;y Quy&#x1EC1;n c&#x1EE7;a H&atilde;ng.
+        li
+          | S&#x1EA3;n ph&#x1EA9;m l&#x1EAF;p &dstrok;&#x1EB7;t, b&#x1EA3;o tr&igrave;, s&#x1EED; d&#x1EE5;ng kh&ocirc;ng &dstrok;&uacute;ng theo h&#x1B0;&#x1EDB;ng d&#x1EAB;n c&#x1EE7;a Nh&agrave; s&#x1EA3;n xu&#x1EA5;t g&acirc;y ra h&#x1B0; h&#x1ECF;ng.
+        li
+          | S&#x1EA3;n ph&#x1EA9;m trong t&igrave;nh tr&#x1EA1;ng b&#x1ECB; kh&oacute;a t&agrave;i kho&#x1EA3;n c&aacute; nh&acirc;n nh&#x1B0;: T&agrave;i kho&#x1EA3;n kh&oacute;a m&aacute;y/m&agrave;n h&igrave;nh, kh&oacute;a t&agrave;i kho&#x1EA3;n tr&#x1EF1;c tuy&#x1EBF;n Gmail, iCloud...
+        li Kh&aacute;ch h&agrave;ng s&#x1EED; d&#x1EE5;ng ph&#x1EA7;n m&#x1EC1;m, &#x1EE9;ng d&#x1EE5;ng kh&ocirc;ng ch&iacute;nh H&atilde;ng, kh&ocirc;ng b&#x1EA3;n quy&#x1EC1;n.
+        li M&agrave;n h&igrave;nh c&oacute; b&#x1ED1;n (04) &dstrok;i&#x1EC3;m ch&#x1EBF;t tr&#x1EDF; xu&#x1ED1;ng.
+      em
+        strong
+          | Ngo&agrave;i ra, c&#x1A1; ch&#x1EBF; b&#x1EA3;o h&agrave;nh c&utilde;ng kh&ocirc;ng c&oacute; hi&#x1EC7;u l&#x1EF1;c &dstrok;&#x1ED1;i v&#x1EDB;i c&aacute;c l&#x1ED7;i th&#x1B0;&#x1EDD;ng th&#x1EA5;y nh&#x1B0;ng kh&ocirc;ng &dstrok;&#x1EBF;n t&#x1EEB; nh&agrave; s&#x1EA3;n xu&#x1EA5;t nh&#x1B0;:
+      ul
+        li
+          | S&#x1EA3;n ph&#x1EA9;m l&#x1ED7;i 
+          strong do ng&#x1EA5;m n&#x1B0;&#x1EDB;c, ch&#x1EA5;t l&#x1ECF;ng v&agrave; b&#x1EE5;i b&#x1EA9;n.
+          |  Quy &dstrok;&#x1ECB;nh n&agrave;y &aacute;p d&#x1EE5;ng cho c&#x1EA3; nh&#x1EEF;ng thi&#x1EBF;t b&#x1ECB; &dstrok;&#x1EA1;t ch&#x1EE9;ng nh&#x1EAD;n ch&#x1ED1;ng b&#x1EE5;i/ch&#x1ED1;ng n&#x1B0;&#x1EDB;c cao nh&#x1EA5;t l&agrave; IP68.
+        li
+          | S&#x1EA3;n ph&#x1EA9;m b&#x1ECB; bi&#x1EBF;n d&#x1EA1;ng, n&#x1EE9;t v&#x1EE1;, c&#x1EA5;n m&oacute;p, tr&#x1EA7;y x&#x1B0;&#x1EDB;c n&#x1EB7;ng do t&aacute;c &dstrok;&#x1ED9;ng nhi&#x1EC7;t, t&aacute;c &dstrok;&#x1ED9;ng b&ecirc;n ngo&agrave;i.
+        li S&#x1EA3;n ph&#x1EA9;m c&oacute; v&#x1EBF;t m&#x1ED1;c, r&#x1EC9; s&eacute;t ho&#x1EB7;c b&#x1ECB; &abreve;n m&ograve;n, oxy h&oacute;a b&#x1EDF;i h&oacute;a ch&#x1EA5;t.
+        li
+          | S&#x1EA3;n ph&#x1EA9;m b&#x1ECB; h&#x1B0; h&#x1EA1;i do thi&ecirc;n tai, h&#x1ECF;a ho&#x1EA1;n, l&#x1EE5;t l&#x1ED9;i, s&eacute;t &dstrok;&aacute;nh, c&ocirc;n tr&ugrave;ng, &dstrok;&#x1ED9;ng v&#x1EAD;t v&agrave;o.
+    div
+      h3.shop-cs-maintitle M&#x1ED9;t s&#x1ED1; l&#x1B0;u &yacute; tr&#x1B0;&#x1EDB;c khi b&#x1EA3;o h&agrave;nh
+      ul
+        li
+          | Trong qu&aacute; tr&igrave;nh th&#x1EF1;c hi&#x1EC7;n d&#x1ECB;ch v&#x1EE5; b&#x1EA3;o h&agrave;nh, c&aacute;c n&#x1ED9;i dung l&#x1B0;u tr&#x1EEF; tr&ecirc;n s&#x1EA3;n ph&#x1EA9;m c&#x1EE7;a Qu&yacute; kh&aacute;ch s&#x1EBD; b&#x1ECB; x&oacute;a v&agrave; &dstrok;&#x1ECB;nh d&#x1EA1;ng l&#x1EA1;i. Do &dstrok;&oacute;, Qu&yacute; kh&aacute;ch vui l&ograve;ng t&#x1EF1; sao l&#x1B0;u to&agrave;n b&#x1ED9; d&#x1EEF; li&#x1EC7;u trong s&#x1EA3;n ph&#x1EA9;m, &dstrok;&#x1ED3;ng th&#x1EDD;i g&#x1EE1; b&#x1ECF; t&#x1EA5;t c&#x1EA3; c&aacute;c th&ocirc;ng tin c&aacute; nh&acirc;n m&agrave; Qu&yacute; kh&aacute;ch mu&#x1ED1;n b&#x1EA3;o m&#x1EAD;t. Tech Store  kh&ocirc;ng ch&#x1ECB;u tr&aacute;ch nhi&#x1EC7;m &dstrok;&#x1ED1;i v&#x1EDB;i b&#x1EA5;t k&#x1EF3; m&#x1EA5;t m&aacute;t n&agrave;o li&ecirc;n quan t&#x1EDB;i c&aacute;c ch&#x1B0;&#x1A1;ng tr&igrave;nh ph&#x1EA7;n m&#x1EC1;m, d&#x1EEF; li&#x1EC7;u ho&#x1EB7;c th &ocirc;ng tin n&agrave;o kh&aacute;c l&#x1B0;u tr&#x1EEF; tr&ecirc;n s&#x1EA3;n ph&#x1EA9;m b&#x1EA3;o h&agrave;nh.
+        li
+          | Vui l&ograve;ng t&#x1EAF;t t&#x1EA5;t c&#x1EA3; c&aacute;c m&#x1EAD;t kh&#x1EA9;u b&#x1EA3;o v&#x1EC7;, Tech Store  s&#x1EBD; t&#x1EEB; ch&#x1ED1;i ti&#x1EBF;p nh&#x1EAD;n b&#x1EA3;o h&agrave;nh n&#x1EBF;u thi&#x1EBF;t b&#x1ECB; c&#x1EE7;a b&#x1EA1;n b&#x1ECB; kh&oacute;a b&#x1EDF;i b&#x1EA5;t c&#x1EE9; ph&#x1B0;&#x1A1;ng ph&aacute;p n&agrave;o.
+// #Footer
+footer.container-fluid.bg-dark.py-3
+  .row.container-fluid.align-items-start.justify-content-center
+    .col-3.d-flex.flex-column.align-items-start.justify-content-start.text-white
+      .container-fluid.d-flex.flex-row.align-items-center.justify-content-start.mb-3
+        img.img-fluid.rounded.me-3(src='../asset/images/TechStore-Logo.png' alt='tech_store_logo')
+      ul
+        li &Dstrok;&#x1ECB;a ch&#x1EC9;: 2xx &dstrok;&#x1B0;&#x1EDD;ng s&#x1ED1; 10, Linh Trung, Th&#x1EE7; &Dstrok;&#x1EE9;c
+        li S&#x1ED1; &dstrok;i&#x1EC7;n tho&#x1EA1;i: 0988-123-xxx
+        li Email: sale@techstore.com.vn
+    .col-3.d-flex.flex-column.align-items-start.justify-content-start.text-white
+      span.fs-5.fw-bold Ch&iacute;nh s&aacute;ch
+      ul
+        li Ch&iacute;nh s&aacute;ch giao h&agrave;ng
+        li Ch&iacute;nh s&aacute;ch b&#x1EA3;o h&agrave;nh
+    .col-3.d-flex.flex-column.align-items-start.justify-content-start.text-white
+      span.fs-5.fw-bold H&#x1B0;&#x1EDB;ng d&#x1EAB;n
+      ul
+        li H&#x1B0;&#x1EDB;ng d&#x1EAB;n thanh to&aacute;n
+        li H&#x1B0;&#x1EDB;ng d&#x1EAB;n tr&#x1EA3; g&oacute;p
+    .col-3.d-flex.flex-column.align-items-start.justify-content-start.text-white
+      span.fs-5.fw-bold Ph&#x1B0;&#x1A1;ng th&#x1EE9;c thanh to&aacute;n
+      img.w-75.my-2.rounded(src='../asset/images/payMethod.png' alt='pay-method')
