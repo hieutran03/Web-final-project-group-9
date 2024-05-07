@@ -21,6 +21,8 @@ function decQuantity() {
   value = value <= 1 ? 1 : value - 1;
   document.getElementById('product-quantity').value = value;
 }
+
+
 const btnAddToCart = document.querySelector('#add-to-cart');
 if(btnAddToCart){
   console.log(btnAddToCart);

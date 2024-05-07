@@ -75,10 +75,10 @@ const productSchema = mongoose.Schema({
   // },
 })
 productSchema.virtual('oldPrice').get(function(){
-  return Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(this.price)
+  return Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(this.price)
 });
 productSchema.virtual('newPrice').get(function(){
-  return Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(
+  return Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(
     this.price - (this.price * this.discountPercentage / 100)
   )
 });

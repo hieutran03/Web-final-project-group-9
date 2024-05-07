@@ -45,7 +45,7 @@ router.get('/', async (req, res) => {
 router.get('/detail/:id', getAuth, async (req, res) =>{
   const productId = req.params.id;
   const product = await Product.findById(productId);
-  if(product){
+  if(product && req.user){
     const userHistory = await ProductViewed.findOne({ userId: req.user._id});
     if (!userHistory){
       let newUserHistory = new ProductViewed({
