@@ -1,0 +1,14 @@
+doctype html
+head
+  meta(charset='UTF-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+  title Dashboard
+  //link(rel='stylesheet' href='/admin/pages/dashboard/chartProduct.css')
+  script.
+    const totalOrder = #{totalOrder}
+.container
+  .title
+    | Line Chart With Chart.js
+  canvas#canvas
+script(src='https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js')
+script(src='/js/chartProduct.js')

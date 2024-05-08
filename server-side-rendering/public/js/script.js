@@ -53,13 +53,10 @@ async function updateQuantity(productId, newQuantity) {
     if (!response.ok) {
       throw new Error("Failed to update quantity");
     }
-<<<<<<< HEAD
-    const user = await response.json()
+    const user = await response.json();
     console.log(user);
-=======
 
     window.location.reload();
->>>>>>> 8508a0e (warranty-policy.html and update cart.js)
   } catch (error) {
     console.error("Error updating quantity:", error);
   }

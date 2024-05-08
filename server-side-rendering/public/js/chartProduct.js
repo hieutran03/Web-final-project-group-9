@@ -14,7 +14,7 @@ const data = {
       label: "Đơn hàng",
       backgroundColor: "red",
       borderColor: "red",
-      data: [10, 4, 42, 68, 8, 54],
+      data: [0, 0, 0, 0, totalOrder, 0],
       tension: 0.4,
     },
   ],
