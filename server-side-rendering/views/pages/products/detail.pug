@@ -73,57 +73,57 @@ block main
           .row
             div.d-flex.justify-content-start
               .fs-6.fw-bold.align-self-center Đánh giá sản phẩm
-              .rate
-                input#star5(type='radio', name='rate', value='5')
+              .rate(product-id=product._id current-rating=rating)
+                input#star5.rating-value(type='radio', name='rate', value='5' data-rating=5)
                 label(for='star5', title='text') 5 stars
-                input#star4(type='radio', name='rate', value='4')
+                input#star4.rating-value(type='radio', name='rate', value='4' data-rating=4)
                 label(for='star4', title='text') 4 stars
-                input#star3(type='radio', name='rate', value='3')
+                input#star3.rating-value(type='radio', name='rate', value='3' data-rating=3)
                 label(for='star3', title='text') 3 stars
-                input#star2(type='radio', name='rate', value='2')
+                input#star2.rating-value(type='radio', name='rate', value='2' data-rating=2)
                 label(for='star2', title='text') 2 stars
-                input#star1(type='radio', name='rate', value='1')
+                input#star1.rating-value(type='radio', name='rate', value='1' data-rating=1)
                 label(for='star1', title='text') 1 star
             // #Rating
             .col-3.d-flex.flex-row.align-items-center.justify-content-center
-              span.fs-5.fw-bold 4.5
+              span.fs-5.fw-bold #{((analysisRating.star5 * 5 + analysisRating.star4 * 4 + analysisRating.star3 * 3 + analysisRating.star2 * 2 + analysisRating.star1 * 1)/totalRating).toFixed(1)}
               img.img-fluid.w-25.m-2(src='/asset/images/star.png', alt='rating')
             .col-9.align-items-center.justify-content-center
               .row.d-flex.flex-row.align-items-center.justify-content-between
                 .col-2
                   span.fs-6 5 sao
                 .col-8.progress.p-0
-                  .progress-bar.bg-info(role='progressbar', style='width: 50%', aria-valuenow='50', aria-valuemin='0', aria-valuemax='100')
+                  .progress-bar.bg-info(role='progressbar', style=`width: ${analysisRating.star5/totalRating*100}%`, aria-valuenow='50', aria-valuemin='0', aria-valuemax='100')
                 .col-2
-                  span.fs-6 545
+                  span.fs-6 #{analysisRating.star5}
               .row.d-flex.flex-row.align-items-center.justify-content-between
                 .col-2
                   span.fs-6 4 sao
                 .col-8.progress.p-0
-                  .progress-bar.bg-info(role='progressbar', style='width: 50%', aria-valuenow='30', aria-valuemin='0', aria-valuemax='100')
+                  .progress-bar.bg-info(role='progressbar', style=`width: ${analysisRating.star4/totalRating*100}%`, aria-valuenow='30', aria-valuemin='0', aria-valuemax='100')
                 .col-2
-                  span.fs-6 545
+                  span.fs-6 #{analysisRating.star4}
               .row.d-flex.flex-row.align-items-center.justify-content-between
                 .col-2
                   span.fs-6 3 sao
                 .col-8.progress.p-0
-                  .progress-bar.bg-info(role='progressbar', style='width: 50%', aria-valuenow='50', aria-valuemin='0', aria-valuemax='100')
+                  .progress-bar.bg-info(role='progressbar', style=`width: ${analysisRating.star3/totalRating*100}%`, aria-valuenow='50', aria-valuemin='0', aria-valuemax='100')
                 .col-2
-                  span.fs-6 545
+                  span.fs-6 #{analysisRating.star3}
               .row.d-flex.flex-row.align-items-center.justify-content-between
                 .col-2
                   span.fs-6 2 sao
                 .col-8.progress.p-0
-                  .progress-bar.bg-info(role='progressbar', style='width: 50%', aria-valuenow='50', aria-valuemin='0', aria-valuemax='100')
+                  .progress-bar.bg-info(role='progressbar', style=`width: ${analysisRating.star2/totalRating*100}%`, aria-valuenow='50', aria-valuemin='0', aria-valuemax='100')
                 .col-2
-                  span.fs-6 545
+                  span.fs-6 #{analysisRating.star2}
               .row.d-flex.flex-row.align-items-center.justify-content-between
                 .col-2
                   span.fs-6 1 sao
                 .col-8.progress.p-0
-                  .progress-bar.bg-info(role='progressbar', style='width: 50%', aria-valuenow='50', aria-valuemin='0', aria-valuemax='100')
+                  .progress-bar.bg-info(role='progressbar', style=`width: ${analysisRating.star1/totalRating*100}%`, aria-valuenow='50', aria-valuemin='0', aria-valuemax='100')
                 .col-2
-                  span.fs-6 545
+                  span.fs-6 #{analysisRating.star1}
           .border.rounded.px-3.my-3
             // #usercmt grid
             .row.p-2.my-1

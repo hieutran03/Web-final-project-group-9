@@ -5,7 +5,7 @@ const router = express.Router();
 const searchHelper = require('../helpers/search');
 const { getAuth, requireAuth } = require('../middlewares/auth');
 const ProductViewed = require('../models/productsViewed');
-
+const { ProductRating } = require('../models/productRating');
 router.get('/', async (req, res) => {
   const objectSearch = searchHelper(req.query);
 
@@ -45,6 +45,16 @@ router.get('/', async (req, res) => {
 router.get('/detail/:id', getAuth, async (req, res) => {
   const productId = req.params.id;
   const product = await Product.findById(productId).populate(['comments.user', 'comments.childComments.user']);
+  const productRating = await ProductRating.findOne({ productId: productId });
+  let rating = 0;
+  let analysisRating = {
+    star5: 0,
+    star4: 0,
+    star3: 0,
+    star2: 0,
+    star1: 0,
+  };
+  let totalRating = 1;
   if (product && req.user) {
     const userHistory = await ProductViewed.findOne({ userId: req.user._id });
     if (!userHistory) {
@@ -62,10 +72,22 @@ router.get('/detail/:id', getAuth, async (req, res) => {
       }
       await userHistory.save();
     }
-    console.log(product)
+    if(productRating){
+      console.log(productRating);
+      const userRating = productRating.users.find(u => u.userID.toString() === req.user._id.toString());
+      if (userRating) {
+        rating = userRating.rating;
+      }
+      analysisRating = productRating.analysisRating;
+      totalRating = productRating.totalRating;
+    }
+
     res.render('pages/products/detail', {
       user: req.user,
       product: product,
+      rating: rating,
+      analysisRating: analysisRating,
+      totalRating: totalRating,
     });
   } else {
     res.redirect('/');
@@ -96,13 +118,50 @@ router.post('/comment/:id', requireAuth, async (req, res) => {
       await product.save();
       res.redirect(`/products/detail/${productId}`);
     } else {
-      res.redirect('/');
+      res.redirect(`/products/detail/${productId}`);
     }
   }catch(e){
     console.log(e);
     res.redirect('/');
   }
 });
+router.post('/rating/:id', requireAuth, async (req, res) => {
+  const productId = req.params.id;
+  const userId = req.user._id;
+  const rating = req.body.rating;
+  const productRating = await ProductRating.findOne({ productId: productId });
+  if (productRating) {
+    const index = productRating.users.findIndex(u => u.userID.toString() == userId);
+    if (index === -1) {
+      productRating.users.push({ userID: userId, rating: rating });
+      productRating.analysisRating['star' + rating]++;
+    } else {
+      productRating.analysisRating['star' + productRating.users[index].rating]--;
+      productRating.analysisRating['star' + rating]++;
+      productRating.users[index].rating = rating;
+    }
+    await productRating.save();
+    res.redirect(`/products/detail/${productId}`);
+  } else {
+    const newProductRating = new ProductRating({
+      productId: productId,
+      analysisRating:{
+        star5: rating == 5 ? 1 : 0,
+        star4: rating == 4 ? 1 : 0,
+        star3: rating == 3 ? 1 : 0,
+        star2: rating == 2 ? 1 : 0,
+        star1: rating == 1 ? 1 : 0,
+      },
+      users: [{ userID: userId, rating: rating }]
+    });
+    await newProductRating.save();
+    res.status(200).json({});
+  }
+});
+
+module.exports = router;
+
+
 // router.get('/:id', async (req, res) => {
 //   if (!mongoose.isValidObjectId(req.params.id)) {
 //     return res.status(400).send('Invalid Product ID')
@@ -239,4 +298,3 @@ router.post('/comment/:id', requireAuth, async (req, res) => {
 //   }
 // )
 
-module.exports = router;

@@ -207,7 +207,7 @@ router.post('/detail/update', requireAuth, async (req, res) => {
   }
 
   await User.updateOne({ _id: userId }, { username: newUsername, address: newAddress })
-  return res.json({ message: 'Successfully changed!' });
+  return res.redirect('/');
 });
 
 router.get('/:id', async (req, res) => {
