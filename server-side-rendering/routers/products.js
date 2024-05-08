@@ -13,23 +13,23 @@ router.get('/', async (req, res) => {
     deleted: false,
     status: 'active',
   }
-  let category ={
+  let category = {
     name: 'Tất cả sản phẩm',
   };
-  if(req.query.category){
+  if (req.query.category) {
     category = await Category.findOne({
       uniqueName: req.query.category,
     });
-    if(category){
+    if (category) {
       find.category = category._id;
     }
   }
   if (objectSearch.regex) {
     find.name = objectSearch.regex;
   }
-  
+
   const products = await Product.find(find)
-    .sort({position: 'desc'});
+    .sort({ position: 'desc' });
   const pagination = {
     currentPage: 1,
     totalPage: 2,
@@ -42,18 +42,18 @@ router.get('/', async (req, res) => {
     category: category.name,
   });
 })
-router.get('/detail/:id', getAuth, async (req, res) =>{
+router.get('/detail/:id', getAuth, async (req, res) => {
   const productId = req.params.id;
   const product = await Product.findById(productId).populate(['comments.user', 'comments.childComments.user']);
-  if(product && req.user){
-    const userHistory = await ProductViewed.findOne({ userId: req.user._id});
-    if (!userHistory){
+  if (product && req.user) {
+    const userHistory = await ProductViewed.findOne({ userId: req.user._id });
+    if (!userHistory) {
       let newUserHistory = new ProductViewed({
         userId: req.user._id,
         viewedProducts: [{ productId: productId, viewedAt: Date.now() }]
       })
       await newUserHistory.save();
-    }else {
+    } else {
       const viewedProductIndex = userHistory.viewedProducts.findIndex(vp => vp.productId.toString() === productId);
       if (viewedProductIndex === -1) {
         userHistory.viewedProducts.push({ productId: productId, viewedAt: Date.now() });
@@ -67,23 +67,39 @@ router.get('/detail/:id', getAuth, async (req, res) =>{
       user: req.user,
       product: product,
     });
-  }else{
+  } else {
     res.redirect('/');
   }
 
 });
 router.post('/comment/:id', requireAuth, async (req, res) => {
-  const productId = req.params.id;
-  const product = await Product.findById(productId);
-  if (product) {
-    product.comments.unshift({
-      user: req.user._id,
-      content: req.body.content,
-    });
-    console.log(product);
-    await product.save();
-    res.redirect(`/products/detail/${productId}`);
-  } else {
+  try {
+
+    const productId = req.params.id.split('-')[0];
+    const commentId = req.params.id.split('-')[1];
+    const product = await Product.findById(productId);
+    if (product) {
+      if (commentId) {
+        const commentToReply = product.comments.findIndex(c => c._id.toString() === commentId)
+        product.comments[commentToReply].childComments.push({
+          user: req.user._id,
+          content: req.body.content,
+        });
+      } else {
+        product.comments.unshift({
+          user: req.user._id,
+          content: req.body.content,
+        });
+      }
+
+      console.log(product);
+      await product.save();
+      res.redirect(`/products/detail/${productId}`);
+    } else {
+      res.redirect('/');
+    }
+  }catch(e){
+    console.log(e);
     res.redirect('/');
   }
 });

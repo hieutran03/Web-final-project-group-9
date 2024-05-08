@@ -147,8 +147,28 @@ block main
                 .col-11.d-flex.flex-column
                   span.fs-6.fw-bold.m-1 #{comment.user.username}
                   span.small.ms-3 #{comment.date.toDateString()}
-                  textarea#user-comment.form-control.ms-3(rows='1', style='resize: none;' disabled='') #{comment.content}
-                  a.ms-3(href="#") Trả lời
+                  textarea.user-comment.form-control.ms-3(rows='1', style='resize: none;' disabled='') #{comment.content}
+                  a.reply-comment-product.ms-3(href="#") Trả lời
+                  .form-reply-comment.ms-3.row.p-2.my-1.d-none
+                    .col-1.d-flex.flex-column.justify-content-start.align-items-center.px-0
+                      div
+                        img.img-fluid(src='/asset/images/ava.png', alt='client avatar')
+                    .col-11.d-flex.flex-column
+                      form(action=`/products/comment/${product._id}-${comment._id}`, method="POST")
+                        span.fs-6.fw-bold.m-1 #{user.username}
+                        textarea.user-comment.form-control(rows='3', style='resize: none;' name='content' placeholder='Nhập bình luận của bạn' required='')
+                        .d-flex.flex-row-reverse
+                          input(type="submit" value="Bình luận").m-1.btn.btn-primary
+                  each reply in comment.childComments
+                    .ms-3.row.p-2.my-1
+                      .col-1.d-flex.flex-column.justify-content-start.align-items-center.px-0
+                        div
+                          img.img-fluid(src='/asset/images/ava.png', alt='client avatar')
+                      .col-11.d-flex.flex-column
+                        span.fs-6.fw-bold.m-1 #{reply.user.username}
+                        span.small.ms-3 #{reply.date.toDateString()}
+                        textarea.user-comment.form-control.ms-3(rows='1', style='resize: none;' disabled='') #{reply.content}
+                        a.reply-comment-product.ms-3(href="#")
               .border-top.m-2
            
         .col-5.d-flex.flex-column.gap-2.p-3

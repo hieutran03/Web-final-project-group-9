@@ -69,7 +69,8 @@ async function updateQuantity(productId, newQuantity) {
     if (!response.ok) {
       throw new Error("Failed to update quantity");
     }
-    const {totalPrice, cartTotal} = await response.json()
+    const {totalPrice, cartTotal} = await response.json();
+    console.log(totalPrice, cartTotal)
     document.querySelector("#total-price").innerText =  Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(totalPrice);
     document.querySelector("#cart-total").innerText = cartTotal;
   } catch (error) {
@@ -88,4 +89,21 @@ if (btnAddToCart) {
       formUserService.submit();
     });
   }
+}
+
+const replyCommentProduct = document.querySelectorAll(".reply-comment-product");
+if (replyCommentProduct.length > 0) {
+  // const formReplyComment = document.querySelector(".form-reply-comment");
+  // if (formReplyComment) {
+  //   replyCommentProduct.addEventListener("click", (e) => {
+  //     formReplyComment.classList.toggle("d-none");
+  //   });
+  // }
+  replyCommentProduct.forEach((replyComment) => {
+    replyComment.addEventListener("click", (e) => {
+      e.preventDefault();
+      const formReplyComment = replyComment.nextElementSibling;
+      formReplyComment.classList.toggle("d-none");
+    });
+  });
 }

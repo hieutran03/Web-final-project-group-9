@@ -42,8 +42,9 @@ router.post("/update/:productId", async (req, res) => {
   } else {
     user.cart.push({ products: productId, quantity: parseInt(quantity) });
   }
-
   const updatedUser = await user.save();
+  console.log(updatedUser)
+
   res.status(200).json({
     totalPrice: updatedUser.totalPrice,
     cartTotal: updatedUser.cartTotal,
