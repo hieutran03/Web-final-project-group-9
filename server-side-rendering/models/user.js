@@ -49,9 +49,7 @@ const userSchema = mongoose.Schema({
 userSchema.pre('find', function () {
   this.populate('cart.products');
 });
-userSchema.pre('save', function () {
-  this.populate('cart.products');
-});
+
 userSchema.virtual('cartTotal').get(function () {
   return this.cart.reduce((total, item) => {
     return total + item.quantity;

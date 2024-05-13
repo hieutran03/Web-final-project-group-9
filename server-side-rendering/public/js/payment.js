@@ -10,21 +10,20 @@ paypal
           "totalPrice": totalPrice,
           "items": items,
         }),
-      })
-        .then(res => {
-          if (res.ok) return res.json()
-          return res.json().then(json => Promise.reject(json))
+      }).then(res => {
+          if (res.ok) return res.json();
+          return res.json().then(json => Promise.reject(json));
         })
         .then(({ id }) => {
-          return id
+          return id;
         })
         .catch(e => {
-          console.error(e.error)
+          console.error(e.error);
         })
     },
     onApprove: function (data, actions) {
       return actions.order.capture().then(
-        function() {
+        function () {
           window.location.href = "/";
         }
       );

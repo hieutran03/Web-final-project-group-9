@@ -107,6 +107,9 @@ const productSchema = mongoose.Schema({
   //   type: Number,
   //   default: 0,
   // },
+},{
+  toObject: { virtuals: true },
+  toJSON: { virtuals: true }
 })
 
 productSchema.virtual('oldPrice').get(function(){
@@ -117,5 +120,7 @@ productSchema.virtual('newPrice').get(function(){
     this.price - (this.price * this.discountPercentage / 100)
   )
 });
-
+productSchema.virtual('finalPrice').get(function(){
+  return this.price - (this.price * this.discountPercentage / 100);
+});
 exports.Product = mongoose.model('Product', productSchema);

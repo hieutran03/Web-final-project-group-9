@@ -155,7 +155,7 @@ router.post('/rating/:id', requireAuth, async (req, res) => {
       users: [{ userID: userId, rating: rating }]
     });
     await newProductRating.save();
-    res.status(200).json({});
+    res.status(200).json({message: 'Rating success!'});
   }
 });
 

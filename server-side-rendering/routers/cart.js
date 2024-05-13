@@ -42,12 +42,13 @@ router.post("/update/:productId", async (req, res) => {
   } else {
     user.cart.push({ products: productId, quantity: parseInt(quantity) });
   }
-  const updatedUser = await user.save();
-  console.log(updatedUser)
+  await user.save();
+  const updatedUser = await User.findById(req.user._id).populate("cart.products");
 
   res.status(200).json({
-    totalPrice: updatedUser.totalPrice,
-    cartTotal: updatedUser.cartTotal,
+    updatedtotalPrice: updatedUser.totalPrice,
+    updatedcartTotal: updatedUser.cartTotal,
+    updatedItems: updatedUser.cart,
   });
 });
 router.delete("/delete/:productId", async (req, res) => {

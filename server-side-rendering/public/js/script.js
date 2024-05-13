@@ -69,10 +69,15 @@ async function updateQuantity(productId, newQuantity) {
     if (!response.ok) {
       throw new Error("Failed to update quantity");
     }
-    const { totalPrice, cartTotal } = await response.json();
-    console.log(totalPrice, cartTotal)
-    document.querySelector("#total-price").innerText = Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(totalPrice);
-    document.querySelector("#cart-total").innerText = cartTotal;
+    const { updatedtotalPrice, updatedcartTotal, updatedItems } = await response.json();
+    if(items){
+      items = updatedItems;
+    }
+    if(totalPrice){
+      totalPrice = updatedtotalPrice;
+    }
+    document.querySelector("#total-price").innerText = Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(updatedtotalPrice);
+    document.querySelector("#cart-total").innerText = updatedcartTotal;
   } catch (error) {
     console.error("Error updating quantity:", error);
   }
@@ -119,6 +124,7 @@ if (ratingValue.length > 0) {
           },
           body: JSON.stringify({ rating: ratingValue }),
         });
+        
         if (!response.ok) {
           throw new Error("Failed to rate product");
         } else {

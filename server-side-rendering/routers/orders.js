@@ -9,7 +9,7 @@ router.get('/', async (req, res) => {
   if (!orderList) {
     res.status(500).json({ success: false })
   }
-  res.send(orderList);
+  res.render('pages/orders', {});
 })
 
 router.get('/:id', async (req, res) => {
@@ -41,19 +41,19 @@ router.post('/', async (req, res) => {
   const orderItemsIdsResolved = await orderItemsIds;
 
   const totalPrices = await Promise.all(orderItemsIdsResolved.map(async (orderItemId) => {
-    const orderItem = await OrderItem.findById(orderItemId).populate('product', 'price');
-    const totalPrice = orderItem.product.price * orderItem.quantity;
+    const orderItem = await OrderItem.findById(orderItemId).populate('product');
+
+    const totalPrice = orderItem.product.finalPrice * orderItem.quantity;
     return totalPrice;
   }))
-
   const totalPrice = totalPrices.reduce((a, b) => a + b, 0);
 
   let order = new Order({
     orderItems: orderItemsIdsResolved,
-    shippingAddress: req.body.shippingAddress,
-    country: req.body.country,
-    phone: req.body.phone,
-    status: req.body.status,
+    // shippingAddress: req.body.shippingAddress,
+    // country: req.body.country,
+    // phone: req.body.phone,
+    // status: req.body.status,
     totalPrice: totalPrice,
     user: req.body.user,
   })

@@ -14,8 +14,8 @@ const paypalClient = new paypal.core.PayPalHttpClient(
 )
 
 router.post('/create-order', async (req, res) => {
-    const totalPrice = req.body.totalPrice
-    const request = new paypal.orders.OrdersCreateRequest()
+  const totalPrice = req.body.totalPrice
+  const request = new paypal.orders.OrdersCreateRequest()
   request.prefer("return=representation")
   request.requestBody({
     intent: "CAPTURE",
@@ -32,12 +32,12 @@ router.post('/create-order', async (req, res) => {
           },
         },
         items: req.body.items.map(item => {
-            const storeItem = item.products;
+          const storeItem = item.products;
           return {
             name: storeItem.name,
             unit_amount: {
               currency_code: "USD",
-              value: storeItem.price,
+              value: storeItem.finalPrice,
             },
             quantity: item.quantity,
           }
@@ -45,7 +45,6 @@ router.post('/create-order', async (req, res) => {
       },
     ],
   })
-
   try {
     const order = await paypalClient.execute(request)
     res.json({ id: order.result.id })
@@ -54,6 +53,6 @@ router.post('/create-order', async (req, res) => {
   }
 })
 router.get('/test', async (req, res) => {
-    res.send();
+  res.send();
 })
 module.exports = router;
