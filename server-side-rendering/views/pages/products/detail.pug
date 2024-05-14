@@ -12,16 +12,12 @@ block main
       // #Product
       .row.py-3
         .col-5
-          img.img-fluid.rounded(src=product.image alt='advertisement')
+          img.img-fluid.rounded.center(src=product.image alt='advertisement')
         .col-7.d-flex.flex-column.gap-3
           span.fs-4 #{product.name}
           span.fs-3.fw-bold.text-info #{product.newPrice}
           span.fs-7 Số lượng: #{product.countInStock}
-          form(method='POST' data-product-id = product._id)#form-user-service.d-flex.flex-row.w-25
-            .btn-group.input-group(role='group' aria-label='Basic example')
-              button.btn.btn-light.border(type='button' onclick='decQuantity()') -
-              input#product-quantity.form-control.text-center(type='text' name='quantity' value='1' aria-label='Quantity')
-              button.btn.btn-light.border(type='button' onclick='incQuantity()') +
+          
           .d-flex.flex-column.w-50
             button#add-to-cart.btn.btn-info.fw-bold.py-2(type='button') THÊM VÀO GIỎ HÀNG
           .d-flex.flex-column.w-50
@@ -63,3 +59,113 @@ block main
             .col-8.d-flex.flex-column
               a.fs-6.text-dark.text-decoration-none(href='product.html') Laptop văn phòng QGKAA-24325
               span.fs-5.text-primary.fw-bold 15.000.000đ
+    section.container-lg.bg-white.d-flex.flex-column.mb-3.rounded
+      // #Evaluation & cmt
+
+      
+      .row
+        
+        .col-7.d-flex.flex-column.gap-2.p-3.border-end
+          .row
+            div.d-flex.justify-content-start
+              .fs-6.fw-bold.align-self-center Đánh giá sản phẩm
+              .rate(product-id=product._id current-rating=rating)
+                input#star5.rating-value(type='radio', name='rate', value='5' data-rating=5)
+                label(for='star5', title='text') 5 stars
+                input#star4.rating-value(type='radio', name='rate', value='4' data-rating=4)
+                label(for='star4', title='text') 4 stars
+                input#star3.rating-value(type='radio', name='rate', value='3' data-rating=3)
+                label(for='star3', title='text') 3 stars
+                input#star2.rating-value(type='radio', name='rate', value='2' data-rating=2)
+                label(for='star2', title='text') 2 stars
+                input#star1.rating-value(type='radio', name='rate', value='1' data-rating=1)
+                label(for='star1', title='text') 1 star
+            // #Rating
+            .col-3.d-flex.flex-row.align-items-center.justify-content-center
+              span.fs-5.fw-bold #{((analysisRating.star5 * 5 + analysisRating.star4 * 4 + analysisRating.star3 * 3 + analysisRating.star2 * 2 + analysisRating.star1 * 1)/totalRating).toFixed(1)}
+              img.img-fluid.w-25.m-2(src='/asset/images/star.png', alt='rating')
+            .col-9.align-items-center.justify-content-center
+              .row.d-flex.flex-row.align-items-center.justify-content-between
+                .col-2
+                  span.fs-6 5 sao
+                .col-8.progress.p-0
+                  .progress-bar.bg-info(role='progressbar', style=`width: ${analysisRating.star5/totalRating*100}%`, aria-valuenow='50', aria-valuemin='0', aria-valuemax='100')
+                .col-2
+                  span.fs-6 #{analysisRating.star5}
+              .row.d-flex.flex-row.align-items-center.justify-content-between
+                .col-2
+                  span.fs-6 4 sao
+                .col-8.progress.p-0
+                  .progress-bar.bg-info(role='progressbar', style=`width: ${analysisRating.star4/totalRating*100}%`, aria-valuenow='30', aria-valuemin='0', aria-valuemax='100')
+                .col-2
+                  span.fs-6 #{analysisRating.star4}
+              .row.d-flex.flex-row.align-items-center.justify-content-between
+                .col-2
+                  span.fs-6 3 sao
+                .col-8.progress.p-0
+                  .progress-bar.bg-info(role='progressbar', style=`width: ${analysisRating.star3/totalRating*100}%`, aria-valuenow='50', aria-valuemin='0', aria-valuemax='100')
+                .col-2
+                  span.fs-6 #{analysisRating.star3}
+              .row.d-flex.flex-row.align-items-center.justify-content-between
+                .col-2
+                  span.fs-6 2 sao
+                .col-8.progress.p-0
+                  .progress-bar.bg-info(role='progressbar', style=`width: ${analysisRating.star2/totalRating*100}%`, aria-valuenow='50', aria-valuemin='0', aria-valuemax='100')
+                .col-2
+                  span.fs-6 #{analysisRating.star2}
+              .row.d-flex.flex-row.align-items-center.justify-content-between
+                .col-2
+                  span.fs-6 1 sao
+                .col-8.progress.p-0
+                  .progress-bar.bg-info(role='progressbar', style=`width: ${analysisRating.star1/totalRating*100}%`, aria-valuenow='50', aria-valuemin='0', aria-valuemax='100')
+                .col-2
+                  span.fs-6 #{analysisRating.star1}
+          .border.rounded.px-3.my-3
+            // #usercmt grid
+            .row.p-2.my-1
+              // #user form
+              .col-1.d-flex.flex-column.justify-content-start.align-items-center.px-0
+                div
+                  img.img-fluid(src='/asset/images/ava.png', alt='client avatar')
+              .col-11.d-flex.flex-column
+                form(action=`/products/comment/${product._id}`, method="POST")
+                  span.fs-6.fw-bold.m-1 #{user.username}
+                  textarea#user-comment.form-control(rows='3', style='resize: none;' name='content' placeholder='Nhập bình luận của bạn' required='')
+                  .d-flex.flex-row-reverse
+                    input(type="submit" value="Bình luận").m-1.btn.btn-primary 
+          .d-flex.flex-column.bg-light.border.rounded.px-3
+            each comment in product.comments
+              .row.p-2.my-1
+                // #cmt form
+                .col-1.d-flex.flex-column.justify-content-start.align-items-center.px-0
+                  div
+                    img.img-fluid(src='/asset/images/ava.png', alt='client avatar')
+                .col-11.d-flex.flex-column
+                  span.fs-6.fw-bold.m-1 #{comment.user.username}
+                  span.small.ms-3 #{comment.date.toDateString()}
+                  textarea.user-comment.form-control.ms-3(rows='1', style='resize: none;' disabled='') #{comment.content}
+                  a.reply-comment-product.ms-3(href="#") Trả lời
+                  .form-reply-comment.ms-3.row.p-2.my-1.d-none
+                    .col-1.d-flex.flex-column.justify-content-start.align-items-center.px-0
+                      div
+                        img.img-fluid(src='/asset/images/ava.png', alt='client avatar')
+                    .col-11.d-flex.flex-column
+                      form(action=`/products/comment/${product._id}-${comment._id}`, method="POST")
+                        span.fs-6.fw-bold.m-1 #{user.username}
+                        textarea.user-comment.form-control(rows='3', style='resize: none;' name='content' placeholder='Nhập bình luận của bạn' required='')
+                        .d-flex.flex-row-reverse
+                          input(type="submit" value="Bình luận").m-1.btn.btn-primary
+                  each reply in comment.childComments
+                    .ms-3.row.p-2.my-1
+                      .col-1.d-flex.flex-column.justify-content-start.align-items-center.px-0
+                        div
+                          img.img-fluid(src='/asset/images/ava.png', alt='client avatar')
+                      .col-11.d-flex.flex-column
+                        span.fs-6.fw-bold.m-1 #{reply.user.username}
+                        span.small.ms-3 #{reply.date.toDateString()}
+                        textarea.user-comment.form-control.ms-3(rows='1', style='resize: none;' disabled='') #{reply.content}
+                        a.reply-comment-product.ms-3(href="#")
+              .border-top.m-2
+           
+        .col-5.d-flex.flex-column.gap-2.p-3
+          span.fs-5.fw-bold Sản phẩm đã xem
