@@ -17,11 +17,10 @@ Hà Lê Phú-21522465
 # Tính năng
 ![Tính năng](https://github.com/hieutran03/lot-tich-shop-home-page/assets/164027211/5ee4b9e3-6644-40a6-b654-e5078918ca58)
 
-## Sử dụng Backend API:
+## Sử dụng web:
 
 Step 1:
 ```
-cd backend-api
 npm install
 npm start
 ```
