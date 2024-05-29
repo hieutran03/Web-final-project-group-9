@@ -16,7 +16,7 @@ require('dotenv/config');
 
 const api = process.env.API_URL;
 app.use(cors());
-app.use(express.static('public'));
+app.use(express.static(`${__dirname}/public`));
 app.options('*', cors());
 // parse application/x-www-form-urlencoded
 
