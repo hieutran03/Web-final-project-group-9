@@ -1,20 +1,59 @@
 const { Order } = require('../models/order');
+const { User } = require('../models/user');
 const express = require('express');
 const { OrderItem } = require('../models/order-item');
 const router = express.Router();
 
 router.get('/', async (req, res) => {
-  const orderList = await Order.find().populate('user', 'username').sort({ 'dateOrdered': -1 });
-
-  if (!orderList) {
-    res.status(500).json({ success: false })
-  }
-  res.render('pages/orders', {});
+  const orderList = await Order.find({ user: req.user._id}).populate('orderItems.product').sort({ 'dateOrdered': -1 });
+  console.log(orderList)
+  // if (!orderList) {
+  //   res.status(500).json({ success: false })
+  // }
+  res.render('pages/orders', {
+    user: req.user,
+    orders: orderList
+  });
 })
 
+router.get('/create', async (req, res) => {
+  const user = await User.findById(req.user._id).populate("cart.products");
+  const items = user.cart;
+  const totalPrice = user.totalPrice;
+  console.log(items)
+  res.render('pages/orders/create', {
+    user: req.user,
+    items: items,
+    totalPrice: totalPrice,
+  });
+});
+
+router.post('/create', async (req, res) => {
+
+  const order = new Order({
+    receiver: req.body.receiver === '' ? req.user.username : req.body.receiver,
+    address: req.body.address === '' ? req.user.address : req.body.address,
+    phone: req.body.phone === '' ? '123456789' : req.body.phone,
+    status: req.body.paymentMethod === 'Paypal' ? 'Paid' : 'Pending',
+    totalPrice: req.body.totalPrice,
+    user: req.user._id,
+    orderItems: req.body.items.map(item => {
+      return {
+        product: item.products._id,
+        quantity: item.quantity
+      }
+    })
+  });
+  await order.save();
+  req.user.cart = [];
+  await req.user.save();
+  // const orderList = await Order.find().populate('user', 'username').sort({ 'dateOrdered': -1 });
+  // console.log(orderList)
+  res.redirect('/orders');
+});
 router.get('/:id', async (req, res) => {
   const order = await Order.findById(req.params.id)
-    .populate('user', 'username')
+    // .populate('user', 'username')
     .populate({
       path: 'orderItems', populate: {
         path: 'product', populate: 'category'
@@ -50,10 +89,6 @@ router.post('/', async (req, res) => {
 
   let order = new Order({
     orderItems: orderItemsIdsResolved,
-    // shippingAddress: req.body.shippingAddress,
-    // country: req.body.country,
-    // phone: req.body.phone,
-    // status: req.body.status,
     totalPrice: totalPrice,
     user: req.body.user,
   })

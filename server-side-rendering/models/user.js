@@ -51,15 +51,17 @@ userSchema.pre('find', function () {
 });
 
 userSchema.virtual('cartTotal').get(function () {
-  return this.cart.reduce((total, item) => {
-    return total + item.quantity;
-  }, 0);
+  if(this.cart.length>0)
+    return this.cart.reduce((total, item) => {
+      return total + item.quantity;
+    }, 0);
 })
 userSchema.virtual('totalPrice').get(function () {
-  return this.cart.reduce((reduce, item) => {
-    return (
-      reduce + ((item.products.price * (100 - item.products.discountPercentage)) / 100) * item.quantity
-    );
-  }, 0);
+  if(this.cart.length>0)
+    return this.cart.reduce((reduce, item) => {
+      return (
+        reduce + ((item.products.price * (100 - item.products.discountPercentage)) / 100) * item.quantity
+      );
+    }, 0);
 })
 exports.User = mongoose.model('User', userSchema);

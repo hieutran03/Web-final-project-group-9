@@ -3,6 +3,8 @@ const app = express();
 var cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser');
 const methodOverride = require("method-override");
+const session = require('express-session');
+const flash = require('req-flash');
 // const morgan = require('morgan');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -27,6 +29,10 @@ app.use(cookieParser())
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(methodOverride('_method'));
+app.use(session({ secret: '123' }));
+app.use(flash());
+flash({ locals: 'flash' })
+
 //app.use(morgan('tiny'));
 //app.use(authJwt());
 app.use(errorHandler);

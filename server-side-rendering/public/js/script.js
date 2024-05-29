@@ -70,10 +70,10 @@ async function updateQuantity(productId, newQuantity) {
       throw new Error("Failed to update quantity");
     }
     const { updatedtotalPrice, updatedcartTotal, updatedItems } = await response.json();
-    if(items){
+    if (items) {
       items = updatedItems;
     }
-    if(totalPrice){
+    if (totalPrice) {
       totalPrice = updatedtotalPrice;
     }
     document.querySelector("#total-price").innerText = Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(updatedtotalPrice);
@@ -124,7 +124,7 @@ if (ratingValue.length > 0) {
           },
           body: JSON.stringify({ rating: ratingValue }),
         });
-        
+
         if (!response.ok) {
           throw new Error("Failed to rate product");
         } else {
@@ -139,4 +139,29 @@ const rating = document.querySelector("div[current-rating]");
 if (rating && rating.getAttribute("current-rating") > 0) {
   const star = document.querySelector(`#star${rating.getAttribute("current-rating")}`);
   star.click();
+}
+
+const btnPayDirect = document.querySelector("#btn-pay-direct");
+if (btnPayDirect) {
+  btnPayDirect.addEventListener("click", async (e) => {
+    const response = await fetch("/orders/create", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        "items": items,
+        "totalPrice": totalPrice,
+        "receiver": document.querySelector("#payment-name").value,
+        "address": document.querySelector("#payment-address").value,
+        "phone": document.querySelector("#payment-phone").value,
+      }),
+      // redirect: "follow",
+    });
+    // console.log(response)
+    alert("Cảm ơn quý khách đã đặt hàng!")
+    setTimeout(() => {
+      window.location.href = response.url;
+    }, 1500);
+  });
 }

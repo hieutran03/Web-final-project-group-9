@@ -132,11 +132,17 @@ block main
                 div
                   img.img-fluid(src='/asset/images/ava.png', alt='client avatar')
               .col-11.d-flex.flex-column
-                form(action=`/products/comment/${product._id}`, method="POST")
-                  span.fs-6.fw-bold.m-1 #{user.username}
-                  textarea#user-comment.form-control(rows='3', style='resize: none;' name='content' placeholder='Nhập bình luận của bạn' required='')
-                  .d-flex.flex-row-reverse
-                    input(type="submit" value="Bình luận").m-1.btn.btn-primary 
+                if(user)
+                  form(action=`/products/comment/${product._id}`, method="POST")
+                    span.fs-6.fw-bold.m-1 #{user.username}
+                    textarea#user-comment.form-control(rows='3', style='resize: none;' name='content' placeholder='Nhập bình luận của bạn' required='')
+                    .d-flex.flex-row-reverse
+                      input(type="submit" value="Bình luận").m-1.btn.btn-primary
+                else
+                  span.fs-6.fw-bold.m-1
+                    a(href='/users/login') Đăng nhập 
+                    div(style='display: inline-block;') để bình luận
+
           .d-flex.flex-column.bg-light.border.rounded.px-3
             each comment in product.comments
               .row.p-2.my-1
@@ -154,11 +160,16 @@ block main
                       div
                         img.img-fluid(src='/asset/images/ava.png', alt='client avatar')
                     .col-11.d-flex.flex-column
-                      form(action=`/products/comment/${product._id}-${comment._id}`, method="POST")
-                        span.fs-6.fw-bold.m-1 #{user.username}
-                        textarea.user-comment.form-control(rows='3', style='resize: none;' name='content' placeholder='Nhập bình luận của bạn' required='')
-                        .d-flex.flex-row-reverse
-                          input(type="submit" value="Bình luận").m-1.btn.btn-primary
+                      if(user)
+                        form(action=`/products/comment/${product._id}-${comment._id}`, method="POST")
+                          span.fs-6.fw-bold.m-1 #{user.username}
+                          textarea.user-comment.form-control(rows='3', style='resize: none;' name='content' placeholder='Nhập bình luận của bạn' required='')
+                          .d-flex.flex-row-reverse
+                            input(type="submit" value="Bình luận").m-1.btn.btn-primary
+                      else
+                        span.fs-6.fw-bold.m-1
+                          a(href='/users/login') Đăng nhập 
+                          div(style='display: inline-block;') để bình luận
                   each reply in comment.childComments
                     .ms-3.row.p-2.my-1
                       .col-1.d-flex.flex-column.justify-content-start.align-items-center.px-0

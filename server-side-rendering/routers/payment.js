@@ -13,7 +13,7 @@ const paypalClient = new paypal.core.PayPalHttpClient(
   )
 )
 
-router.post('/create-order', async (req, res) => {
+router.post('/create', async (req, res) => {
   const totalPrice = req.body.totalPrice
   const request = new paypal.orders.OrdersCreateRequest()
   request.prefer("return=representation")
@@ -47,6 +47,7 @@ router.post('/create-order', async (req, res) => {
   })
   try {
     const order = await paypalClient.execute(request)
+    
     res.json({ id: order.result.id })
   } catch (e) {
     res.status(500).json({ error: e.message })

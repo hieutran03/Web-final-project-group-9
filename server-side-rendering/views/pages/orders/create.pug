@@ -1,0 +1,60 @@
+extends ../../layouts/default.pug
+
+block main
+  .card.m-5.p-2
+    .card-header
+      h5 Thông tin đặt hàng
+    table(
+        class="table table-hover table-sm"
+        checkbox-multi
+      )
+        thead
+          tr
+            th STT
+            th Hình ảnh
+            th Tên
+            th Giá
+            th Số lượng
+        tbody
+          each item, index in items
+
+            tr 
+              td #{index + 1}
+              td
+                img(
+                  src=item.products.image
+                  alt=item.products.name
+                  width="100px"
+                  height="100px"
+                  style="object-fit: contain;"
+                )
+              td #{item.products.name}
+              td #{item.products.newPrice}
+              td #{item.quantity}
+          
+         
+    #order-address
+      .mb-3
+        label(for='name') Họ và tên
+        input#payment-name.form-control(name='name')
+      .mb-3
+        label(for='phone') Số điện thoại
+        input#payment-phone.form-control(name='phone')
+      .mb-3
+        label(for='address') Địa chỉ
+        input#payment-address.form-control(name='address')
+      //- .mb-3
+      //-   label(for='note') Ghi chú
+      //-   textarea.form-control(name='note', id='note')
+    
+    .border-top.m-2
+    .fw-bold.fs-5.text-primary.d-flex.flex-row.row.m-2.justify-content-end Tổng tiền: #{Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(totalPrice)}
+    .d-flex.justify-content-end
+      button#btn-pay-direct.btn.btn-info.m-2.p-2.w-25.align-item-center Thanh toán khi nhận hàng
+    script.
+      var items = !{JSON.stringify(items)};
+      var totalPrice = #{totalPrice};
+      console.log(items);
+    script(src='https://www.paypal.com/sdk/js?client-id=Ab-rm5wfaI2ZthgqL6RKBiLb48rOszx8RARcghydngiKjXXmkJqrkXJtMbJiaqbIomuv6lfwoCopy-kF')
+    script(src='/js/payment.js')
+    div.w-25.m-2.align-self-end.w-25#paypal

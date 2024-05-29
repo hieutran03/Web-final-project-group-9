@@ -55,29 +55,35 @@ router.get('/detail/:id', getAuth, async (req, res) => {
     star1: 0,
   };
   let totalRating = 1;
-  if (product && req.user) {
-    const userHistory = await ProductViewed.findOne({ userId: req.user._id });
-    if (!userHistory) {
-      let newUserHistory = new ProductViewed({
-        userId: req.user._id,
-        viewedProducts: [{ productId: productId, viewedAt: Date.now() }]
-      })
-      await newUserHistory.save();
-    } else {
-      const viewedProductIndex = userHistory.viewedProducts.findIndex(vp => vp.productId.toString() === productId);
-      if (viewedProductIndex === -1) {
-        userHistory.viewedProducts.push({ productId: productId, viewedAt: Date.now() });
+  if (product) {
+    if (req.user) {
+      const userHistory = await ProductViewed.findOne({ userId: req.user._id });
+      if (!userHistory) {
+        let newUserHistory = new ProductViewed({
+          userId: req.user._id,
+          viewedProducts: [{ productId: productId, viewedAt: Date.now() }]
+        })
+        await newUserHistory.save();
       } else {
-        userHistory.viewedProducts[viewedProductIndex].viewedAt = Date.now();
+        const viewedProductIndex = userHistory.viewedProducts.findIndex(vp => vp.productId.toString() === productId);
+        if (viewedProductIndex === -1) {
+          userHistory.viewedProducts.push({ productId: productId, viewedAt: Date.now() });
+        } else {
+          userHistory.viewedProducts[viewedProductIndex].viewedAt = Date.now();
+        }
+        await userHistory.save();
       }
-      await userHistory.save();
+
     }
-    if(productRating){
+    if (productRating) {
       console.log(productRating);
-      const userRating = productRating.users.find(u => u.userID.toString() === req.user._id.toString());
-      if (userRating) {
-        rating = userRating.rating;
+      if (req.user) {
+        const userRating = productRating.users.find(u => u.userID.toString() === req.user._id.toString());
+        if (userRating) {
+          rating = userRating.rating;
+        }
       }
+
       analysisRating = productRating.analysisRating;
       totalRating = productRating.totalRating;
     }
@@ -120,7 +126,7 @@ router.post('/comment/:id', requireAuth, async (req, res) => {
     } else {
       res.redirect(`/products/detail/${productId}`);
     }
-  }catch(e){
+  } catch (e) {
     console.log(e);
     res.redirect('/');
   }
@@ -145,7 +151,7 @@ router.post('/rating/:id', requireAuth, async (req, res) => {
   } else {
     const newProductRating = new ProductRating({
       productId: productId,
-      analysisRating:{
+      analysisRating: {
         star5: rating == 5 ? 1 : 0,
         star4: rating == 4 ? 1 : 0,
         star3: rating == 3 ? 1 : 0,
@@ -155,7 +161,7 @@ router.post('/rating/:id', requireAuth, async (req, res) => {
       users: [{ userID: userId, rating: rating }]
     });
     await newProductRating.save();
-    res.status(200).json({message: 'Rating success!'});
+    res.status(200).json({ message: 'Rating success!' });
   }
 });
 

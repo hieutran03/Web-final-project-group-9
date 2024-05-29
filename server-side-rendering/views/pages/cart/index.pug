@@ -24,12 +24,9 @@ block main
         span.col Tổng tiền:
         span#total-price.col.fs-5.text-primary.fw-bold.d-flex.flex-row.justify-content-end #{Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(totalPrice)}
       .border-top.m-2
-      button.btn.btn-info.d-flex.m-2.p-0(type='button')
-        a.fs-6.text-decoration-none.text-dark.w-100.p-2 Đặt hàng
-      script.
-        var items = !{JSON.stringify(items)};
-        var totalPrice = #{totalPrice};
-        console.log(items);
-      script(src='https://www.paypal.com/sdk/js?client-id=Ab-rm5wfaI2ZthgqL6RKBiLb48rOszx8RARcghydngiKjXXmkJqrkXJtMbJiaqbIomuv6lfwoCopy-kF')
-      script(src='/js/payment.js')
-      div#paypal
+      button.btn.btn-info.d-flex.m-2.p-0(type='button').w-25.align-self-end
+        a.fs-6.text-decoration-none.text-dark.w-100.p-2(href='/orders/create') Đặt hàng
+  script.
+    var items = !{JSON.stringify(items)};
+    var totalPrice = #{totalPrice};
+      
