@@ -27,4 +27,4 @@ npm start
 
 Step 2:
 
-Tạo file .env với nội dung đã gửi trong group chat (vẫn trong folder backend-api)
+Tạo file .env với nội dung đã gửi trong group chat
