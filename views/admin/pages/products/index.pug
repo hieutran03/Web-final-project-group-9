@@ -3,30 +3,12 @@ include ../../mixins/pagination.pug
 block main
   .d-flex.flex-wrap.flex-md-nowrap.align-items-center.pb-2.mb-3.border-bottom
     h1 Danh sách sản phẩm
-
-        //- .card.mb-3
-        //-   .card-header Bộ lọc và Tìm kiếm
-        //-   .card-body
-        //-     .row
-        //-       .col-6
-        //-         +filter-status(filterStatus)
-        //-       .col-6
-        //-         +search(keyword)
-
-        //- .card.mb-3
-        //-   .card-header Sắp xếp
-        //-   .card-body
-        //-     .row
-        //-       .col-4
-        //-         +sort()
         
   .card.mb-3
     .card-header Danh sách
       .card-body
         .row
-          //- .col-8
-          //-   if(role.permissions.includes("products_edit"))
-          //-     +form-change-multi(`${prefixAdmin}/products/change-multi?_method=PATCH`)
+
           .col-4
             a(
               href=`/admin/products/create`
@@ -96,10 +78,6 @@ block main
                     ) Dừng hoạt động
                 
                 td
-                  a(
-                    href=`/admin/products/detail/${item.id}`
-                    class="btn btn-secondary btn-sm"
-                    ) Chi tiết
                   a(
                     href=`/admin/products/edit/${item.id}`
                     class="btn btn-warning btn-sm"

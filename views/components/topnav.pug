@@ -7,16 +7,10 @@
     ul.dropdown-menu.bg-dark(aria-labelledby='dropdownMenu')
       li
         a.dropdown-item(href='/products') Tất cả sản phẩm
-      li
-        a.dropdown-item(href='/products?category=laptop') Laptop
-      li
-        a.dropdown-item(href='/products?category=pc') PC
-      li
-        a.dropdown-item(href='/products?category=gaming-gear') Gaming gear
-      li
-        a.dropdown-item(href='/products?category=storage') Storage
-      li
-        a.dropdown-item(href='/products?category=thiet-bi-ngoai-vi') Thiết bị ngoại vi
+      each item in categories
+        li
+          a.dropdown-item(href=`/products?category=${item.uniqueName}`) #{item.name}
+      
   a.row.d-flex.flex-row.align-items-center.justify-content-between(href='')
     img.img-fluid.col-2(src='/asset/images/cash.png' alt='cash')
     span.col-10 Hướng dẫn thanh toán

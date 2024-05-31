@@ -1,0 +1,27 @@
+extends ../../layouts/default.pug
+
+block main
+  h1(class="mb-4") Thêm mới danh mục
+
+  form(
+    action=`/admin/categories/create`
+    id="form-create-product"
+    method="POST"
+    )
+    div(class="form-group")
+      label(for="title") Tên danh mục
+      input(
+        type="text"
+        class="form-control"
+        id="name"
+        name="name"
+        required
+      )
+    
+    div(class="form-group")
+      button(
+        type="submit"
+        class="btn btn-primary"
+      ) Tạo mới
+
+  script(src="/admin/js/product.js")

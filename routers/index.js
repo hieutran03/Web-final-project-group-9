@@ -7,8 +7,12 @@ const cartRouter = require('./cart')
 const paymentRouter = require('./payment')
 const contactRouter = require('./contact')
 const { getAuth, requireAuth } = require('../middlewares/auth');
+const getCategories = require('../middlewares/getCategories');
 
 module.exports = (app)=>{
+  //midlewares
+  app.use(getCategories);
+
   app.use('/',getAuth, homeRouter);
   app.use('/catergories',getAuth, categoriesRouter);
   app.use('/products',getAuth, productsRouter);
