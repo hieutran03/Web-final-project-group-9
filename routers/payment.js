@@ -2,10 +2,11 @@ const express = require('express');
 const router = express.Router();
 const paypal = require("@paypal/checkout-server-sdk")
 
-const Environment =
-  process.env.NODE_ENV === "production"
-    ? paypal.core.LiveEnvironment
-    : paypal.core.SandboxEnvironment
+// const Environment =
+//   process.env.NODE_ENV === "production"
+//     ? paypal.core.LiveEnvironment
+//     : paypal.core.
+const Environment = paypal.core.SandboxEnvironment
 const paypalClient = new paypal.core.PayPalHttpClient(
   new Environment(
     "Ab-rm5wfaI2ZthgqL6RKBiLb48rOszx8RARcghydngiKjXXmkJqrkXJtMbJiaqbIomuv6lfwoCopy-kF",
