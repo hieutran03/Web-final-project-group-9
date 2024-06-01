@@ -35,34 +35,15 @@ block main
             | #{product.description}
         .col-5.d-flex.flex-column.gap-2.p-3
           span.fs-5.fw-bold Sản phẩm tương tự
-          .row.bg-white.p-2.rounded.me-1
-            .col-4
-              a(href='product.html')
-                img.img-fluid.rounded(src='https://tallzebradesigns.co.uk/wp-content/uploads/2020/12/Banner-Ads.jpg' alt='advertisement')
-            .col-8.d-flex.flex-column
-              a.fs-6.text-dark.text-decoration-none(href='product.html') Laptop văn phòng QGKAA-24325
-              span.fs-5.text-primary.fw-bold 15.000.000đ
-          .row.bg-white.p-2.rounded.me-1
-            .col-4
-              a(href='product.html')
-                img.img-fluid.rounded(src='https://tallzebradesigns.co.uk/wp-content/uploads/2020/12/Banner-Ads.jpg' alt='advertisement')
-            .col-8.d-flex.flex-column
-              a.fs-6.text-dark.text-decoration-none(href='product.html') Laptop văn phòng QGKAA-24325
-              span.fs-5.text-primary.fw-bold 15.000.000đ
-          .row.bg-white.p-2.rounded.me-1
-            .col-4
-              a(href='product.html')
-                img.img-fluid.rounded(src='https://tallzebradesigns.co.uk/wp-content/uploads/2020/12/Banner-Ads.jpg' alt='advertisement')
-            .col-8.d-flex.flex-column
-              a.fs-6.text-dark.text-decoration-none(href='product.html') Laptop văn phòng QGKAA-24325
-              span.fs-5.text-primary.fw-bold 15.000.000đ
-          .row.bg-white.p-2.rounded.me-1
-            .col-4
-              a(href='product.html')
-                img.img-fluid.rounded(src='https://tallzebradesigns.co.uk/wp-content/uploads/2020/12/Banner-Ads.jpg' alt='advertisement')
-            .col-8.d-flex.flex-column
-              a.fs-6.text-dark.text-decoration-none(href='product.html') Laptop văn phòng QGKAA-24325
-              span.fs-5.text-primary.fw-bold 15.000.000đ
+          each product in sameProducts
+            .row.bg-white.p-2.rounded.me-1
+              .col-4
+                a(href=`/products/detail/${product._id}`)
+                  img.img-fluid.rounded(src=product.image alt='advertisement')
+              .col-8.d-flex.flex-column
+                a.fs-6.text-dark.text-decoration-none(href=`/products/detail/${product._id}`) #{product.name}
+                span.fs-5.text-primary.fw-bold #{product.newPrice}
+          
     section.container-lg.bg-white.d-flex.flex-column.mb-3.rounded
       // #Evaluation & cmt
 
@@ -182,5 +163,4 @@ block main
                         a.reply-comment-product.ms-3(href="#")
               .border-top.m-2
            
-        .col-5.d-flex.flex-column.gap-2.p-3
-          span.fs-5.fw-bold Sản phẩm đã xem
+        

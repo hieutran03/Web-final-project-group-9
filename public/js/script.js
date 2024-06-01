@@ -1,3 +1,19 @@
+// Pagination
+const buttonsPagination = document.querySelectorAll("[button-pagination]");
+if (buttonsPagination) {
+  let url = new URL(window.location.href);
+
+  buttonsPagination.forEach((button) => {
+    button.addEventListener("click", () => {
+      const page = button.getAttribute("button-pagination");
+
+      url.searchParams.set("page", page);
+
+      window.location.href = url.href;
+    });
+  });
+}
+// End Pagination
 const logout_form = document.querySelector("#logout_form");
 if (logout_form) {
   const logout_btn = document.querySelector("#logout_btn");

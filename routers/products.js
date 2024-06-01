@@ -3,6 +3,7 @@ const { Category } = require('../models/category');
 const express = require('express');
 const router = express.Router();
 const searchHelper = require('../helpers/search');
+const paginationHelper = require('../helpers/pagination');
 const { getAuth, requireAuth } = require('../middlewares/auth');
 const ProductViewed = require('../models/productsViewed');
 const { ProductRating } = require('../models/productRating');
@@ -27,9 +28,22 @@ router.get('/', async (req, res) => {
   if (objectSearch.regex) {
     find.name = objectSearch.regex;
   }
+  //pagination
+  const countProducts = await Product.countDocuments(find);
 
+  let objectPagination = paginationHelper(
+    {
+      currentPage: 1,
+      limitItems: 8,
+    },
+    req.query,
+    countProducts
+  );
+  // End Pagination
   const products = await Product.find(find)
-    .sort({ position: 'desc' });
+    .sort({ position: 'desc' })
+    .limit(objectPagination.limitItems)
+    .skip(objectPagination.skip);
   const pagination = {
     currentPage: 1,
     totalPage: 2,
@@ -40,11 +54,13 @@ router.get('/', async (req, res) => {
     products: products,
     keywork: objectSearch.keywork,
     category: category.name,
+    pagination: objectPagination,
   });
 })
 router.get('/detail/:id', getAuth, async (req, res) => {
   const productId = req.params.id;
   const product = await Product.findById(productId).populate(['comments.user', 'comments.childComments.user']);
+  const sameProducts = await Product.find({ category: product.category, _id: { $ne: productId } }).limit(4);
   const productRating = await ProductRating.findOne({ productId: productId });
   let rating = 0;
   let analysisRating = {
@@ -94,6 +110,7 @@ router.get('/detail/:id', getAuth, async (req, res) => {
       rating: rating,
       analysisRating: analysisRating,
       totalRating: totalRating,
+      sameProducts: sameProducts,
     });
   } else {
     res.redirect('/');
