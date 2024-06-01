@@ -19,7 +19,8 @@ Trần Cao Hiếu-21522077
 
 Hà Lê Phú-21522465
 # Sơ đồ chức năng
-![Tính năng](https://github.com/hieutran03/lot-tich-shop-home-page/assets/164027211/5ee4b9e3-6644-40a6-b654-e5078918ca58)
+![so-do-chuc-nang](https://github.com/hieutran03/Web-final-project-group-9/assets/96785351/8df00ea6-d5c1-4a9e-9f7c-8ac03d91feae)
+
 
 ## Sử dụng web:
 
